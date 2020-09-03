@@ -1,0 +1,7 @@
+/*** Font Size Mixins ***/
+
+@mixin custom-fontSize($fontSize: 14px, $color: $text-color, $line-height: 16px) {
+  font-size: $fontSize;
+  color: $color;
+  line-height: $line-height;
+}

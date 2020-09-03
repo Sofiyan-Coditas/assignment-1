@@ -1,0 +1,21 @@
+<div class="button-bar">
+  <button class="btn btn-primary">Add Details</button>
+</div>
+
+<div class="grid-container">
+  <div *ngFor="let data of listData" class="grid-items">
+    <div class="item-grid-container">
+      <div class="content">
+        <div class="item-grid-content" [ngStyle]="{ 'background-image': 'url(' + data.imageUrl + ')' }"></div>
+        <div class="content-item">
+          <span class="content-header">{{ data.name }}</span>
+          <span class="ml-8 content-sub-header">{{ data.model }}</span>
+            <span class="item-price">&#8377;{{ data.price }}</span>
+        </div>
+        <div class="content-item text-center">
+          <span>Color: </span><span class="item-color" [ngStyle]="{ color: data.color }">{{ data.color }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
