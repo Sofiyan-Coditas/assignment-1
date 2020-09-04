@@ -1,0 +1,31 @@
+<div #myModal class="container" [@container]>
+    <div class="content" [@content] [style.width]="width">
+        <div class="dialog-header">
+            <span>Login</span>
+        </div>
+        <div class="dialog-content">
+            <div class="pb-24" *ngIf="errorMessage">
+                <span class="error">{{ errorMessage }}</span>
+            </div>
+            <form (submit)="login()" [formGroup]="loginForm" #vehicleForm="ngForm">
+                <div class="pb-24">
+                    <label for="">Name</label>
+                    <input type="text" formControlName="email">
+                </div>
+                <div class="pb-24">
+                    <label for="">Model</label>
+                    <input type="password" formControlName="password">
+                </div>
+                <div class="text-center">
+                    <a (click)="registerUser()" class="btn btn-link" >Register User</a>
+                </div>
+            </form>
+        </div>
+        <div class="dialog-button-bar">
+            <button class="btn btn-primary" type="submit" (click)="login()">Login</button>
+            <button class="btn btn-transparent ml-24" (click)="close()">Close</button>
+        </div>
+    </div>
+</div>
+
+<app-registration #registration></app-registration>

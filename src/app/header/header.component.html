@@ -9,7 +9,10 @@
       <span>Change Theme</span>
     </div>
     <div>
-      <button class="btn btn-transparent ml-8">Logout</button>
+      <button *ngIf="!loggedIn" class="btn btn-transparent ml-8" (click)="openModal()">Login</button>
+      <button *ngIf="loggedIn" class="btn btn-transparent ml-8" (click)="logout()">Logout</button>
     </div>
   </div>
 </div>
+
+<app-login #login [width]="'300px'" (isLogin)="userLoggedIn($event)"></app-login>

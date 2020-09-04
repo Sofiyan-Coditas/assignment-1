@@ -1,5 +1,5 @@
-<div class="button-bar">
-  <button class="btn btn-primary">Add Details</button>
+<div class="button-bar" *ngIf="!logout">
+  <button class="btn btn-primary" (click)="openModal()">Add Vehicle</button>
 </div>
 
 <div class="grid-container">
@@ -10,12 +10,18 @@
         <div class="content-item">
           <span class="content-header">{{ data.name }}</span>
           <span class="ml-8 content-sub-header">{{ data.model }}</span>
-            <span class="item-price">&#8377;{{ data.price }}</span>
+          <span class="price-details"><span class="item-price">&#8377;{{ data.price }}</span></span>
         </div>
         <div class="content-item text-center">
           <span>Color: </span><span class="item-color" [ngStyle]="{ color: data.color }">{{ data.color }}</span>
+        </div>
+        <div class="content-item text-center" *ngIf="!logout">
+          <button class="btn btn-primary" (click)="updateDetails(data)">Edit</button>
+          <button class="btn btn-primary ml-24" (click)="deleteDetails(data)">Delete</button>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<app-add-vehicle #addVehicle [dialogData]="dialogData" [user]="user" (vehicleData)="vehicleData($event)"></app-add-vehicle>

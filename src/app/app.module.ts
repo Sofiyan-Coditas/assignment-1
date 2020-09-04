@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -8,21 +8,38 @@ import { FooterComponent } from './footer/footer.component';
 
 import { SharedModule } from './shared/shared.module';
 import { ToggleSwitchComponent } from './toggle-switch/toggle-switch.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
+
+import { HttpInterceptorService } from './interceptor/http-interceptor.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ToggleSwitchComponent
+    ToggleSwitchComponent,
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: HttpInterceptorService,
+			multi: true
+		}
+  ],
+  entryComponents: [LoginComponent, RegistrationComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
