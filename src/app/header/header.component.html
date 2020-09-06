@@ -1,11 +1,12 @@
 <div class="header">
   <div class="logo">
-    <span>Auto Haven</span>
+    <img src="../../assets/images/logo.png" alt="">
   </div>
 
   <div class="section-right">
     <div class="switch-section">
-      <app-toggle-switch></app-toggle-switch>
+      <!-- <app-toggle-switch></app-toggle-switch> -->
+      <toggle-switch [selectedTheme]="theme | async"></toggle-switch>
       <span>Change Theme</span>
     </div>
     <div>

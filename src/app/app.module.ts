@@ -1,5 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -7,20 +7,21 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
 import { SharedModule } from './shared/shared.module';
-import { ToggleSwitchComponent } from './toggle-switch/toggle-switch.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 
 import { HttpInterceptorService } from './interceptor/http-interceptor.service';
+import { StoreModule } from '@ngrx/store';
+import { themeReducer } from './state-management/theme.reducer';
+import { ToggleSwitch } from './lit-elements/toggle-switch';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ToggleSwitchComponent,
     LoginComponent,
     RegistrationComponent
   ],
@@ -30,7 +31,8 @@ import { HttpInterceptorService } from './interceptor/http-interceptor.service';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({theme: themeReducer})
   ],
   providers: [
 		{
@@ -40,6 +42,7 @@ import { HttpInterceptorService } from './interceptor/http-interceptor.service';
 		}
   ],
   entryComponents: [LoginComponent, RegistrationComponent],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class AppModule { }

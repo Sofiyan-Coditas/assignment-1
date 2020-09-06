@@ -26,7 +26,7 @@ export class VehicleService {
         return this.httpClient.put(ApiEndpoints.VEHICLES + '/' + vehicleData.id, vehicleData);
     }
 
-    deleteVehicle(id: any) {
-        return this.httpClient.delete(ApiEndpoints.VEHICLES + '/' + id);
+    deleteVehicle(data: any) {
+        return this.httpClient.delete(ApiEndpoints.VEHICLES + '/' + data.id + '/');
     }
 }

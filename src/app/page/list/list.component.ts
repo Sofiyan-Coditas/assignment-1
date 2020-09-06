@@ -69,14 +69,11 @@ export class ListComponent implements OnInit {
   }
 
   vehicleData(event) {
-    if (this.listData.findIndex(data => data.id === event.id) !== -1) {
-      const index = this.listData.findIndex(data => data.id === event.id);
-      this.listData[index] = event;
-    }
+    this.getVehicleDataForUser();
   }
 
   deleteDetails(data: any) {
-    this.vehicleService.deleteVehicle(data.id).subscribe((result: any) => {
+    this.vehicleService.deleteVehicle(data).subscribe((result: any) => {
       this.getVehicleDataForUser();
     })
   }

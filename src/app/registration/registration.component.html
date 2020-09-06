@@ -1,13 +1,13 @@
 <div #myModal class="container" [@container]>
     <div class="content" [@content] [style.width]="width">
         <div class="dialog-header">
-            <span>Login</span>
+            <span>Register User</span>
         </div>
         <div class="dialog-content">
             <div class="pb-24" *ngIf="errorMessage">
                 <span class="error">{{ errorMessage }}</span>
             </div>
-            <form (submit)="register()" [formGroup]="loginForm" #vehicleForm="ngForm">
+            <form (submit)="register()" [formGroup]="registrationForm">
                 <div class="pb-24">
                     <label for="">Email</label>
                     <input type="text" formControlName="email">

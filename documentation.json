@@ -1,0 +1,2880 @@
+{
+    "pipes": [],
+    "interfaces": [],
+    "injectables": [
+        {
+            "name": "AuthService",
+            "id": "injectable-AuthService-ff0bbc86c9814d52083676d5dd00c5e3",
+            "file": "src/app/services/auth.service.ts",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "login",
+                    "args": [
+                        {
+                            "name": "userData",
+                            "type": "any"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 12,
+                    "jsdoctags": [
+                        {
+                            "name": "userData",
+                            "type": "any",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "registerUser",
+                    "args": [
+                        {
+                            "name": "userData",
+                            "type": "any"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 16,
+                    "jsdoctags": [
+                        {
+                            "name": "userData",
+                            "type": "any",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "description": "",
+            "sourceCode": "import { Injectable } from '@angular/core';\nimport { HttpClient } from '@angular/common/http';\nimport { ApiEndpoints } from '../app.constant';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class AuthService {\n\n  constructor(private httpClient: HttpClient) { }\n\n  login(userData: any) {\n    return this.httpClient.post(ApiEndpoints.LOGIN, userData);\n  }\n\n  registerUser(userData: any) {\n    return this.httpClient.post(ApiEndpoints.REGISTER, userData);\n  }\n}\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "httpClient",
+                        "type": "HttpClient"
+                    }
+                ],
+                "line": 8,
+                "jsdoctags": [
+                    {
+                        "name": "httpClient",
+                        "type": "HttpClient",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "type": "injectable"
+        },
+        {
+            "name": "UserDetailsService",
+            "id": "injectable-UserDetailsService-5fa26d845d03a61bfa425bf4e9b95bdd",
+            "file": "src/app/services/user-details.service.ts",
+            "properties": [
+                {
+                    "name": "_userDetails",
+                    "defaultValue": "new Subject<any>()",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 8
+                }
+            ],
+            "methods": [
+                {
+                    "name": "loggedInUser",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 13
+                },
+                {
+                    "name": "userDetails",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Observable<any>",
+                    "typeParameters": [],
+                    "line": 22
+                }
+            ],
+            "description": "",
+            "sourceCode": "import { Injectable } from '@angular/core';\nimport { BehaviorSubject, Observable, Subject } from 'rxjs';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class UserDetailsService {\n  _userDetails = new Subject<any>();\n  constructor() {\n    this.loggedInUser();\n  }\n\n  loggedInUser() {\n    const loggedUser = JSON.parse(localStorage.getItem('user'));\n    if (loggedUser) {\n      this._userDetails.next(loggedUser);\n    } else {\n      this._userDetails.next();\n    }\n  }\n\n  userDetails(): Observable<any> {\n    return this._userDetails.asObservable();\n  }\n}\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 8
+            },
+            "type": "injectable"
+        },
+        {
+            "name": "VehicleService",
+            "id": "injectable-VehicleService-8b77f9e2b2e8a20aca7a167f360913d0",
+            "file": "src/app/services/vehicle.service.ts",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "addVehicle",
+                    "args": [
+                        {
+                            "name": "vehicleData",
+                            "type": "any"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 21,
+                    "jsdoctags": [
+                        {
+                            "name": "vehicleData",
+                            "type": "any",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "deleteVehicle",
+                    "args": [
+                        {
+                            "name": "data",
+                            "type": "any"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 29,
+                    "jsdoctags": [
+                        {
+                            "name": "data",
+                            "type": "any",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "getAllVehicles",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 13
+                },
+                {
+                    "name": "getVehicle",
+                    "args": [
+                        {
+                            "name": "userId",
+                            "type": "number"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 17,
+                    "jsdoctags": [
+                        {
+                            "name": "userId",
+                            "type": "number",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "updateVehicle",
+                    "args": [
+                        {
+                            "name": "vehicleData",
+                            "type": "any"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 25,
+                    "jsdoctags": [
+                        {
+                            "name": "vehicleData",
+                            "type": "any",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "description": "",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { HttpClient, HttpHeaders } from '@angular/common/http';\r\nimport { ApiEndpoints } from '../app.constant';\r\n\r\n@Injectable({\r\n    providedIn: 'root'\r\n})\r\n\r\nexport class VehicleService {\r\n    \r\n    constructor(private httpClient: HttpClient) {}\r\n\r\n    getAllVehicles() {\r\n        return this.httpClient.get(ApiEndpoints.VEHICLES);\r\n    }\r\n\r\n    getVehicle(userId: number) {\r\n        return this.httpClient.get(ApiEndpoints.VEHICLES + '?userId=' + userId);\r\n    }\r\n\r\n    addVehicle(vehicleData: any) {\r\n        return this.httpClient.post(ApiEndpoints.VEHICLES, vehicleData);\r\n    }\r\n\r\n    updateVehicle(vehicleData: any) {\r\n        return this.httpClient.put(ApiEndpoints.VEHICLES + '/' + vehicleData.id, vehicleData);\r\n    }\r\n\r\n    deleteVehicle(data: any) {\r\n        return this.httpClient.delete(ApiEndpoints.VEHICLES + '/' + data.id + '/');\r\n    }\r\n}\r\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "httpClient",
+                        "type": "HttpClient"
+                    }
+                ],
+                "line": 9,
+                "jsdoctags": [
+                    {
+                        "name": "httpClient",
+                        "type": "HttpClient",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "type": "injectable"
+        }
+    ],
+    "classes": [
+        {
+            "name": "ApiEndpoints",
+            "id": "class-ApiEndpoints-ecbcc4f1fc0b9273dac8624c62731964",
+            "file": "src/app/app.constant.ts",
+            "type": "class",
+            "sourceCode": "import { environment } from '../environments/environment';\r\n\r\nexport class ApiEndpoints {\r\n    static VEHICLES = environment.API_ENDPOINT + '/vehicle';\r\n\r\n    static LOGIN = environment.API_ENDPOINT + '/auth/login';\r\n\r\n    static REGISTER = environment.API_ENDPOINT + '/auth/register';\r\n}",
+            "properties": [
+                {
+                    "name": "LOGIN",
+                    "defaultValue": "environment.API_ENDPOINT + '/auth/login'",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 6,
+                    "modifierKind": [
+                        115
+                    ]
+                },
+                {
+                    "name": "REGISTER",
+                    "defaultValue": "environment.API_ENDPOINT + '/auth/register'",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 8,
+                    "modifierKind": [
+                        115
+                    ]
+                },
+                {
+                    "name": "VEHICLES",
+                    "defaultValue": "environment.API_ENDPOINT + '/vehicle'",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 4,
+                    "modifierKind": [
+                        115
+                    ]
+                }
+            ],
+            "methods": [],
+            "indexSignatures": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "hostBindings": [],
+            "hostListeners": []
+        },
+        {
+            "name": "AppPage",
+            "id": "class-AppPage-a0db91bfa3b9914e9048612074084ee6",
+            "file": "e2e/src/app.po.ts",
+            "type": "class",
+            "sourceCode": "import { browser, by, element } from 'protractor';\n\nexport class AppPage {\n  navigateTo(): Promise<unknown> {\n    return browser.get(browser.baseUrl) as Promise<unknown>;\n  }\n\n  getTitleText(): Promise<string> {\n    return element(by.css('app-root .content span')).getText() as Promise<string>;\n  }\n}\n",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "getTitleText",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Promise<string>",
+                    "typeParameters": [],
+                    "line": 8
+                },
+                {
+                    "name": "navigateTo",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Promise<unknown>",
+                    "typeParameters": [],
+                    "line": 4
+                }
+            ],
+            "indexSignatures": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "hostBindings": [],
+            "hostListeners": []
+        },
+        {
+            "name": "ToggleSwitch",
+            "id": "class-ToggleSwitch-0fc0171641e37440b13f435a0c4e8972",
+            "file": "src/app/lit-elements/toggle-switch.ts",
+            "type": "class",
+            "sourceCode": "import { LitElement, html, customElement, css, property } from 'lit-element';\r\n\r\n@customElement('toggle-switch')\r\nexport class ToggleSwitch extends LitElement {\r\n\r\n    ischecked: boolean;\r\n    @property() selectedTheme: string;\r\n\r\n    static get styles() {\r\n        return css`\r\n            .toggle-switch {\r\n                height: 20px;\r\n                width: 36px;\r\n                display: inline-block;\r\n                position: relative;\r\n            }\r\n            .toggle-switch input {\r\n                display: none;\r\n            }\r\n            .toggle-switch input:checked + .slider {\r\n                background-color: blue;\r\n            }\r\n            .toggle-switch input:checked + .slider::after {\r\n                -webkit-transform: translateX(10px);\r\n                -ms-transform: translateX(10px);\r\n                transform: translateX(10px);\r\n            }\r\n            .toggle-switch .slider {\r\n                position: absolute;\r\n                left: 0;\r\n                top: 0;\r\n                right: 0;\r\n                bottom: 0;\r\n                background-color: grey;\r\n                transition: 0.5s;\r\n                border-radius: 12px;\r\n                border: 1px solid #fff;\r\n            }\r\n            .toggle-switch .slider::after {\r\n                position: absolute;\r\n                content: \"\";\r\n                height: 12px;\r\n                width: 16px;\r\n                background-color: #fff;\r\n                left: 4px;\r\n                bottom: 3px;\r\n                transition: 0.5s;\r\n                border-radius: 10px;\r\n            }\r\n        `;\r\n    }\r\n\r\n    render() {\r\n        this.ischecked = this.selectedTheme === 'light' ? true : false;\r\n        return html`\r\n        <label class=\"toggle-switch\">\r\n            <input type=\"checkbox\" checked=\"${this.ischecked}\" @change=\"${ this.themeChanged }\">\r\n            <div class=\"slider\"></div>\r\n        </label>\r\n        `;\r\n    }\r\n\r\n    themeChanged() {\r\n        this.dispatchEvent(new CustomEvent('changedTheme'));\r\n    }\r\n}\r\n\r\n// declare global {\r\n//     interface HTMLElementTagNameMap {\r\n//         'switch': ToggleSwitch;\r\n//     }\r\n// }",
+            "properties": [
+                {
+                    "name": "ischecked",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 6
+                },
+                {
+                    "name": "selectedTheme",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 7,
+                    "decorators": [
+                        {
+                            "name": "property",
+                            "stringifiedArguments": ""
+                        }
+                    ]
+                }
+            ],
+            "methods": [
+                {
+                    "name": "render",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 53
+                },
+                {
+                    "name": "themeChanged",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 63
+                }
+            ],
+            "indexSignatures": [],
+            "extends": "LitElement",
+            "accessors": {
+                "styles": {
+                    "name": "styles",
+                    "getSignature": {
+                        "name": "styles",
+                        "type": "",
+                        "returnType": "",
+                        "line": 9
+                    }
+                }
+            }
+        }
+    ],
+    "directives": [],
+    "components": [
+        {
+            "name": "AddVehicleComponent",
+            "id": "component-AddVehicleComponent-a9af1807f5c3c3c4e2827a1b505108f0",
+            "file": "src/app/page/add-vehicle/add-vehicle.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-add-vehicle",
+            "styleUrls": [
+                "./add-vehicle.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./add-vehicle.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "dialogData",
+                    "line": 69
+                },
+                {
+                    "name": "user",
+                    "line": 70
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "vehicleData",
+                    "defaultValue": "new EventEmitter()",
+                    "line": 79,
+                    "type": "EventEmitter<any>"
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "editFlag",
+                    "defaultValue": "false",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 72
+                },
+                {
+                    "name": "errorMessage",
+                    "defaultValue": "''",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 71
+                },
+                {
+                    "name": "form",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 74
+                },
+                {
+                    "name": "modal",
+                    "type": "ElementRef",
+                    "optional": false,
+                    "description": "",
+                    "line": 78,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "'myModal', {static: false}"
+                        }
+                    ]
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "close",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 85
+                },
+                {
+                    "name": "ngOnChanges",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 99
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 88
+                },
+                {
+                    "name": "open",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 81
+                },
+                {
+                    "name": "save",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 106
+                },
+                {
+                    "name": "setFormValues",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 128
+                },
+                {
+                    "name": "update",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 132
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';\nimport { animate, state, style, transition, trigger, animateChild, query } from '@angular/animations';\nimport { FormBuilder, FormGroup, Validators } from '@angular/forms';\nimport { VehicleService } from 'src/app/services/vehicle.service';\n\n@Component({\n  selector: 'app-add-vehicle',\n  templateUrl: './add-vehicle.component.html',\n  styleUrls: ['./add-vehicle.component.scss'],\n  animations: [\n    trigger('host', [\n      transition(':leave', [\n        query('@container,@content', [\n          animateChild()\n        ])\n      ]),\n      transition(':enter', [\n        query('@container,@content', [\n          animateChild()\n        ])\n      ]),\n    ]),\n    trigger('content', [\n      transition(':leave', [\n        style({\n          transform: 'scale(1)'\n        }),\n        animate('100ms ease-out', style({\n          transform: 'scale(1.2)'\n        })),\n        animate('300ms ease-in', style({\n          transform: 'scale(0)'\n        }))\n      ]),\n      transition(':enter', [\n        style({\n          transform: 'scale(0.5)'\n        }),\n        animate('200ms ease-out', style({\n          transform: 'scale(1.2)'\n        })),\n        animate('100ms ease-out', style({\n          transform: 'scale(1)'\n        }))\n      ]),\n    ]),\n    trigger('container', [\n      transition(':leave', [\n        style({\n          opacity: 1,\n        }),\n        animate('230ms ease-in', style({\n          opacity: 0,\n        }))\n      ]),\n      transition(':enter', [\n        style({\n          opacity: 0,\n        }),\n        animate('230ms ease-in', style({\n          opacity: 1,\n        }))\n      ]),\n    ])\n  ]\n})\nexport class AddVehicleComponent implements OnInit {\n\n  @Input() dialogData;\n  @Input() user;\n  errorMessage = '';\n  editFlag = false;\n\n  form: FormGroup;\n\n  constructor(private fb: FormBuilder, private vehicleService: VehicleService) { }\n\n  @ViewChild('myModal', {static: false}) modal: ElementRef;\n  @Output('vehicleData') vehicleData: EventEmitter<any> = new EventEmitter();\n\n  open() {\n    this.modal.nativeElement.style.display = 'block';\n  }\n\n  close() {\n    this.modal.nativeElement.style.display = 'none';\n  }\n  ngOnInit(): void {\n    this.form = this.fb.group({\n      name: ['', [Validators.required]],\n      model: ['', [Validators.required]],\n      color: ['', [Validators.required]],\n      chasisNumber: [''],\n      price: ['', [Validators.required]],\n      imageUrl: ['', [Validators.required]]\n    });\n  }\n\n  ngOnChanges() {\n    if (this.dialogData && this.dialogData.edit) {\n      this.editFlag = true;\n      this.setFormValues();\n    }\n  }\n\n  save() {\n    if (this.form.invalid) {\n      this.errorMessage = 'Please Enter all the details!!';\n      return;\n    }\n\n    const vehicleData = {\n      name: this.form.controls.name.value,\n      model: this.form.controls.model.value,\n      color: this.form.controls.color.value,\n      chasisNumber: this.form.controls.chasisNumber.value,\n      price: this.form.controls.price.value,\n      imageUrl: this.form.controls.imageUrl.value,\n      userId: this.user.id\n    }\n\n    this.vehicleService.addVehicle(vehicleData).subscribe((result: any) => {\n      this.vehicleData.emit(result);\n      this.close();\n    })\n  }\n\n  setFormValues() {\n    this.form.patchValue(this.dialogData);\n  }\n\n  update() {\n    if (this.form.invalid) {\n      this.errorMessage = 'Please Enter all the details!!';\n      return;\n    }\n\n    const vehicleData = {\n      name: this.form.controls.name.value,\n      model: this.form.controls.model.value,\n      color: this.form.controls.color.value,\n      chasisNumber: this.form.controls.chasisNumber.value,\n      price: this.form.controls.price.value,\n      imageUrl: this.form.controls.imageUrl.value,\n      userId: this.user.id,\n      id: this.dialogData.id\n    }\n\n    this.vehicleService.updateVehicle(vehicleData).subscribe((result: any) => {\n      this.vehicleData.emit(result);\n      this.close();\n    })\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./add-vehicle.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "fb",
+                        "type": "FormBuilder"
+                    },
+                    {
+                        "name": "vehicleService",
+                        "type": "VehicleService"
+                    }
+                ],
+                "line": 74,
+                "jsdoctags": [
+                    {
+                        "name": "fb",
+                        "type": "FormBuilder",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "vehicleService",
+                        "type": "VehicleService",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div #myModal class=\"container\" [@container]>\n    <div class=\"content\" [@content]>\n        <div class=\"dialog-header\">\n            <span>Add Vehicle</span>\n        </div>\n        <div class=\"dialog-content\">\n            <form (submit)=\"save()\" [formGroup]=\"form\" #vehicleForm=\"ngForm\">\n                <div class=\"form-grid\">\n                    <div class=\"form-field\">\n                        <label for=\"\">Name</label>\n                        <input type=\"text\" formControlName=\"name\">\n                    </div>\n                    <div>\n                        <label for=\"\">Model</label>\n                        <input type=\"text\" formControlName=\"model\">\n                    </div>\n                    <div class=\"form-field\">\n                        <label for=\"\">Color</label>\n                        <input type=\"text\" formControlName=\"color\">\n                    </div>\n                    <div>\n                        <label for=\"\">Chasis Number</label>\n                        <input type=\"text\" formControlName=\"chasisNumber\">\n                    </div>\n                    <div class=\"form-field\">\n                        <label for=\"\">Price</label>\n                        <input type=\"text\" formControlName=\"price\">\n                    </div>\n                    <div>\n                        <label for=\"\">Image Url</label>\n                        <input type=\"text\" formControlName=\"imageUrl\">\n                    </div>\n                </div>\n            </form>\n        </div>\n        <div class=\"dialog-button-bar\">\n            <button class=\"btn btn-primary\" type=\"submit\" *ngIf=\"!editFlag\" (click)=\"save()\">Save</button>\n            <button class=\"btn btn-primary\" type=\"submit\" *ngIf=\"editFlag\" (click)=\"update()\">Update</button>\n            <button class=\"btn btn-transparent ml-24\" (click)=\"close()\">Close</button>\n        </div>\n    </div>\n</div>"
+        },
+        {
+            "name": "AppComponent",
+            "id": "component-AppComponent-9ea4c8d959da0b8b239852d3233ea6f9",
+            "file": "src/app/app.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-root",
+            "styleUrls": [
+                "./app.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./app.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "theme",
+                    "type": "Observable<string>",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                },
+                {
+                    "name": "title",
+                    "defaultValue": "'autoHaven'",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                }
+            ],
+            "methodsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { Store, select } from '@ngrx/store';\nimport { Observable } from 'rxjs';\nimport { THIS_EXPR } from '@angular/compiler/src/output/output_ast';\n\n@Component({\n  selector: 'app-root',\n  templateUrl: './app.component.html',\n  styleUrls: ['./app.component.scss']\n})\nexport class AppComponent {\n  title = 'autoHaven';\n  theme: Observable<string>;\n  constructor(private store: Store<{theme: string}>) {\n    this.theme = this.store.pipe(select('theme'));\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./app.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "store",
+                        "type": "Store<literal type>"
+                    }
+                ],
+                "line": 13,
+                "jsdoctags": [
+                    {
+                        "name": "store",
+                        "type": "Store<literal type>",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "templateData": "<div [ngClass]=\"{ light: (theme | async) === 'light', dark: (theme | async) === 'dark' }\">\n  <app-header></app-header>\n  <div class=\"main\">\n    <router-outlet></router-outlet>\n  </div>\n  <app-footer></app-footer>\n</div>"
+        },
+        {
+            "name": "ButtonComponent",
+            "id": "component-ButtonComponent-642c6c4e474cd5a0ac760dfda26b2fc9",
+            "file": "src/stories/button.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "storybook-button",
+            "styleUrls": [
+                "./button.css"
+            ],
+            "styles": [],
+            "template": "<button   type=\"button\"\n   (click)=\"onClick.emit($event)\"\n   [ngClass]=\"classes\"\n   [ngStyle]=\"{ 'background-color': backgroundColor }\"\n >\n   {{ label }}\n </button>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "backgroundColor",
+                    "description": "<p>What background color to use</p>\n",
+                    "line": 26,
+                    "type": "string"
+                },
+                {
+                    "name": "label",
+                    "defaultValue": "'Button'",
+                    "description": "<p>Button contents</p>\n",
+                    "line": 40
+                },
+                {
+                    "name": "primary",
+                    "defaultValue": "false",
+                    "description": "<p>Is this the principal call to action on the page?</p>\n",
+                    "line": 20
+                },
+                {
+                    "name": "size",
+                    "defaultValue": "'medium'",
+                    "description": "<p>How large should the button be?</p>\n",
+                    "line": 32,
+                    "type": "\"small\" | \"medium\" | \"large\""
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "onClick",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "description": "<p>Optional click handler</p>\n",
+                    "line": 46,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'storybook-button',\n  template: ` <button\n    type=\"button\"\n    (click)=\"onClick.emit($event)\"\n    [ngClass]=\"classes\"\n    [ngStyle]=\"{ 'background-color': backgroundColor }\"\n  >\n    {{ label }}\n  </button>`,\n  styleUrls: ['./button.css'],\n})\nexport default class ButtonComponent {\n  /**\n   * Is this the principal call to action on the page?\n   */\n  @Input()\n  primary = false;\n\n  /**\n   * What background color to use\n   */\n  @Input()\n  backgroundColor?: string;\n\n  /**\n   * How large should the button be?\n   */\n  @Input()\n  size: 'small' | 'medium' | 'large' = 'medium';\n\n  /**\n   * Button contents\n   *\n   * @required\n   */\n  @Input()\n  label = 'Button';\n\n  /**\n   * Optional click handler\n   */\n  @Output()\n  onClick = new EventEmitter<Event>();\n\n  public get classes(): string[] {\n    const mode = this.primary ? 'storybook-button--primary' : 'storybook-button--secondary';\n\n    return ['storybook-button', `storybook-button--${this.size}`, mode];\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".storybook-button {\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  font-weight: 700;\n  border: 0;\n  border-radius: 3em;\n  cursor: pointer;\n  display: inline-block;\n  line-height: 1;\n}\n.storybook-button--primary {\n  color: white;\n  background-color: #1ea7fd;\n}\n.storybook-button--secondary {\n  color: #333;\n  background-color: transparent;\n  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;\n}\n.storybook-button--small {\n  font-size: 12px;\n  padding: 10px 16px;\n}\n.storybook-button--medium {\n  font-size: 14px;\n  padding: 11px 20px;\n}\n.storybook-button--large {\n  font-size: 16px;\n  padding: 12px 24px;\n}\n",
+                    "styleUrl": "./button.css"
+                }
+            ],
+            "stylesData": "",
+            "accessors": {
+                "classes": {
+                    "name": "classes",
+                    "getSignature": {
+                        "name": "classes",
+                        "type": "[]",
+                        "returnType": "string[]",
+                        "line": 48
+                    }
+                }
+            }
+        },
+        {
+            "name": "FooterComponent",
+            "id": "component-FooterComponent-868f3962f21c76b835aad91a76be5501",
+            "file": "src/app/footer/footer.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-footer",
+            "styleUrls": [
+                "./footer.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./footer.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 12
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-footer',\n  templateUrl: './footer.component.html',\n  styleUrls: ['./footer.component.scss']\n})\nexport class FooterComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./footer.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 8
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div class=\"footer\">\n  <p class=\"footer-content\">\n    @Copyright AutoHaven\n  </p>\n</div>\n"
+        },
+        {
+            "name": "HeaderComponent",
+            "id": "component-HeaderComponent-246e2a69dc126a3bd76c6328dd3b93e2",
+            "file": "src/stories/header.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "storybook-header",
+            "styleUrls": [
+                "./header.css"
+            ],
+            "styles": [],
+            "template": "<header>    <div class=\"wrapper\">\n      <div>\n        <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z\"\n              fill=\"#FFF\"\n            />\n            <path\n              d=\"M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z\"\n              fill=\"#555AB9\"\n            />\n            <path\n              d=\"M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z\"\n              fill=\"#91BAF8\"\n            />\n          </g>\n        </svg>\n        <h1>Acme</h1>\n      </div>\n      <div>\n        <storybook-button\n          *ngIf=\"user\"\n          size=\"small\"\n          (onClick)=\"onLogout.emit($event)\"\n          label=\"Log out\"\n        ></storybook-button>\n        <storybook-button\n          *ngIf=\"!user\"\n          size=\"small\"\n          (onClick)=\"onLogin.emit($event)\"\n          label=\"Log in\"\n        ></storybook-button>\n        <storybook-button\n          *ngIf=\"!user\"\n          primary\n          size=\"small\"\n          (onClick)=\"onCreateAccount.emit($event)\"\n          label=\"Sign up\"\n        ></storybook-button>\n      </div>\n    </div>\n  </header>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "user",
+                    "defaultValue": "null",
+                    "line": 53,
+                    "type": "unknown"
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "onCreateAccount",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "line": 62,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "onLogin",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "line": 56,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "onLogout",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "line": 59,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'storybook-header',\n  template: `<header>\n    <div class=\"wrapper\">\n      <div>\n        <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z\"\n              fill=\"#FFF\"\n            />\n            <path\n              d=\"M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z\"\n              fill=\"#555AB9\"\n            />\n            <path\n              d=\"M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z\"\n              fill=\"#91BAF8\"\n            />\n          </g>\n        </svg>\n        <h1>Acme</h1>\n      </div>\n      <div>\n        <storybook-button\n          *ngIf=\"user\"\n          size=\"small\"\n          (onClick)=\"onLogout.emit($event)\"\n          label=\"Log out\"\n        ></storybook-button>\n        <storybook-button\n          *ngIf=\"!user\"\n          size=\"small\"\n          (onClick)=\"onLogin.emit($event)\"\n          label=\"Log in\"\n        ></storybook-button>\n        <storybook-button\n          *ngIf=\"!user\"\n          primary\n          size=\"small\"\n          (onClick)=\"onCreateAccount.emit($event)\"\n          label=\"Sign up\"\n        ></storybook-button>\n      </div>\n    </div>\n  </header>`,\n  styleUrls: ['./header.css'],\n})\nexport default class HeaderComponent {\n  @Input()\n  user: unknown = null;\n\n  @Output()\n  onLogin = new EventEmitter<Event>();\n\n  @Output()\n  onLogout = new EventEmitter<Event>();\n\n  @Output()\n  onCreateAccount = new EventEmitter<Event>();\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".wrapper {\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n  padding: 15px 20px;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n\nsvg {\n  display: inline-block;\n  vertical-align: top;\n}\n\nh1 {\n  font-weight: 900;\n  font-size: 20px;\n  line-height: 1;\n  margin: 6px 0 6px 10px;\n  display: inline-block;\n  vertical-align: top;\n}\n\nbutton + button {\n  margin-left: 10px;\n}\n",
+                    "styleUrl": "./header.css"
+                }
+            ],
+            "stylesData": ""
+        },
+        {
+            "name": "HeaderComponent",
+            "id": "component-HeaderComponent-cdd55b0d83b8de84049dc3f03a558b0e-1",
+            "file": "src/app/header/header.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-header",
+            "styleUrls": [
+                "./header.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./header.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "initialTheme",
+                    "defaultValue": "''",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 30
+                },
+                {
+                    "name": "lightTheme",
+                    "defaultValue": "true",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 22
+                },
+                {
+                    "name": "loggedIn",
+                    "defaultValue": "false",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 21
+                },
+                {
+                    "name": "modal",
+                    "type": "LoginComponent",
+                    "optional": false,
+                    "description": "",
+                    "line": 19,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "'login', {static: false}"
+                        }
+                    ]
+                },
+                {
+                    "name": "theme",
+                    "type": "Observable<string>",
+                    "optional": false,
+                    "description": "",
+                    "line": 26
+                },
+                {
+                    "name": "themeSubscrition",
+                    "type": "Subscription",
+                    "optional": false,
+                    "description": "",
+                    "line": 28
+                },
+                {
+                    "name": "userData",
+                    "type": "Subscription",
+                    "optional": false,
+                    "description": "",
+                    "line": 24
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "logout",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 66
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 36
+                },
+                {
+                    "name": "openModal",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 54
+                },
+                {
+                    "name": "themeChange",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 73,
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "userLoggedIn",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 58,
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit, ViewChild } from '@angular/core';\nimport { LoginComponent } from '../login/login.component';\nimport { UserDetailsService } from '../services/user-details.service';\nimport { Subscription, Observable } from 'rxjs';\nimport { take, map } from 'rxjs/operators';\nimport { ToggleSwitch } from '../lit-elements/toggle-switch';\nimport { Store, select, State, createSelector } from '@ngrx/store';\nimport { changeTheme } from '../state-management/theme.actions';\n\nconsole.assert(ToggleSwitch !== undefined);\n\n@Component({\n  selector: 'app-header',\n  templateUrl: './header.component.html',\n  styleUrls: ['./header.component.scss']\n})\nexport class HeaderComponent implements OnInit {\n\n  @ViewChild('login', {static: false}) modal: LoginComponent;\n\n  loggedIn = false;\n  lightTheme = true;\n\n  userData: Subscription;\n\n  theme: Observable<string>;\n\n  themeSubscrition: Subscription;\n\n  initialTheme = '';\n\n  constructor(private userService: UserDetailsService, private store: Store<{theme: string}>) {\n    this.theme = this.store.pipe(select('theme'));\n  }\n\n  ngOnInit(): void {\n    const token = window.sessionStorage.getItem('token');\n    if (token) {\n      this.loggedIn = true;\n    }\n\n    this.themeSubscrition = this.theme.pipe(\n      map(x => {\n        this.initialTheme = x;\n      })\n    ).subscribe();\n\n    const toggleSwitch = document.querySelector('toggle-switch');\n    toggleSwitch.addEventListener('changedTheme', (event) => {\n      this.store.dispatch(changeTheme());\n    })\n  }\n\n  openModal() {\n    this.modal.open();\n  }\n\n  userLoggedIn(event) {\n    if (event.success) {\n      this.loggedIn = true;\n    } else {\n      this.loggedIn = false;\n    }\n  }\n\n  logout() {\n    window.sessionStorage.clear();\n    localStorage.clear();\n    this.userService.loggedInUser();\n    this.loggedIn = false;\n  }\n\n  themeChange(event) {\n    event.stopPropagation();\n    this.store.dispatch(changeTheme());\n  }\n  \n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".logo {\r\n    img {\r\n        width: inherit;\r\n    }\r\n}",
+                    "styleUrl": "./header.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "userService",
+                        "type": "UserDetailsService"
+                    },
+                    {
+                        "name": "store",
+                        "type": "Store<literal type>"
+                    }
+                ],
+                "line": 30,
+                "jsdoctags": [
+                    {
+                        "name": "userService",
+                        "type": "UserDetailsService",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "store",
+                        "type": "Store<literal type>",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "isDuplicate": true,
+            "duplicateId": 1,
+            "duplicateName": "HeaderComponent-1",
+            "templateData": "<div class=\"header\">\n  <div class=\"logo\">\n    <img src=\"../../assets/images/logo.png\" alt=\"\">\n  </div>\n\n  <div class=\"section-right\">\n    <div class=\"switch-section\">\n      <!-- <app-toggle-switch></app-toggle-switch> -->\n      <toggle-switch [selectedTheme]=\"theme | async\"></toggle-switch>\n      <span>Change Theme</span>\n    </div>\n    <div>\n      <button *ngIf=\"!loggedIn\" class=\"btn btn-transparent ml-8\" (click)=\"openModal()\">Login</button>\n      <button *ngIf=\"loggedIn\" class=\"btn btn-transparent ml-8\" (click)=\"logout()\">Logout</button>\n    </div>\n  </div>\n</div>\n\n<app-login #login [width]=\"'300px'\" (isLogin)=\"userLoggedIn($event)\"></app-login>"
+        },
+        {
+            "name": "ListComponent",
+            "id": "component-ListComponent-fbb92e49dfb2926665312fcd7ee27d1b",
+            "file": "src/app/page/list/list.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-list",
+            "styleUrls": [
+                "./list.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./list.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "dialogData",
+                    "defaultValue": "{}",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
+                },
+                {
+                    "name": "listData",
+                    "defaultValue": "[]",
+                    "type": "[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 15
+                },
+                {
+                    "name": "logout",
+                    "defaultValue": "true",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
+                },
+                {
+                    "name": "modal",
+                    "type": "AddVehicleComponent",
+                    "optional": false,
+                    "description": "",
+                    "line": 23,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "'addVehicle', {static: false}"
+                        }
+                    ]
+                },
+                {
+                    "name": "showDialog",
+                    "defaultValue": "false",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                },
+                {
+                    "name": "user",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
+                },
+                {
+                    "name": "userData",
+                    "type": "Subscription",
+                    "optional": false,
+                    "description": "",
+                    "line": 21
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "deleteDetails",
+                    "args": [
+                        {
+                            "name": "data",
+                            "type": "any"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 75,
+                    "jsdoctags": [
+                        {
+                            "name": "data",
+                            "type": "any",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "getVehicleData",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 55
+                },
+                {
+                    "name": "getVehicleDataForUser",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 49
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 27
+                },
+                {
+                    "name": "openModal",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 61
+                },
+                {
+                    "name": "updateDetails",
+                    "args": [
+                        {
+                            "name": "vehicleData",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 65,
+                    "jsdoctags": [
+                        {
+                            "name": "vehicleData",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "vehicleData",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 71,
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit, ViewChild } from '@angular/core';\nimport { ListModel } from '../models/list.model';\nimport { AddVehicleComponent } from '../add-vehicle/add-vehicle.component';\nimport { VehicleService } from '../../services/vehicle.service';\nimport { Subscription } from 'rxjs';\nimport { UserDetailsService } from 'src/app/services/user-details.service';\n\n@Component({\n  selector: 'app-list',\n  templateUrl: './list.component.html',\n  styleUrls: ['./list.component.scss']\n})\nexport class ListComponent implements OnInit {\n\n  listData = [];\n  showDialog = false;\n  dialogData: any = {};\n  user: any;\n  logout = true;\n\n  userData: Subscription;\n\n  @ViewChild('addVehicle', {static: false}) modal: AddVehicleComponent;\n\n  constructor(private vehicleService: VehicleService, private userService: UserDetailsService) { }\n\n  ngOnInit(): void {\n    // this.getVehicleData();\n    if (localStorage.getItem('user')) {\n      this.user = JSON.parse(localStorage.getItem('user'));\n      this.getVehicleDataForUser();\n      this.logout = false;\n    } else {\n      this.logout = true;\n      this.getVehicleData();\n    }\n    this.userData = this.userService.userDetails().subscribe((result: any) => {\n      if (result) {\n        this.user = result;\n        this.logout = false;\n        this.getVehicleDataForUser();\n      } else {\n        this.logout = true;\n        this.getVehicleData();\n      }\n    })\n  }\n\n  getVehicleDataForUser() {\n    this.vehicleService.getVehicle(this.user.id).subscribe((result: any) => {\n      this.listData = result;\n    });\n  }\n\n  getVehicleData() {\n    this.vehicleService.getAllVehicles().subscribe((result: any) => {\n      this.listData = result;\n    });\n  }\n\n  openModal() {\n    this.modal.open();\n  }\n\n  updateDetails(vehicleData) {\n    this.dialogData = vehicleData;\n    this.dialogData.edit = true;\n    this.openModal();\n  }\n\n  vehicleData(event) {\n    this.getVehicleDataForUser();\n  }\n\n  deleteDetails(data: any) {\n    this.vehicleService.deleteVehicle(data).subscribe((result: any) => {\n      this.getVehicleDataForUser();\n    })\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./list.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "vehicleService",
+                        "type": "VehicleService"
+                    },
+                    {
+                        "name": "userService",
+                        "type": "UserDetailsService"
+                    }
+                ],
+                "line": 23,
+                "jsdoctags": [
+                    {
+                        "name": "vehicleService",
+                        "type": "VehicleService",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "userService",
+                        "type": "UserDetailsService",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div class=\"button-bar\" *ngIf=\"!logout\">\n  <button class=\"btn btn-primary\" (click)=\"openModal()\">Add Vehicle</button>\n</div>\n\n<div class=\"grid-container\">\n  <div *ngFor=\"let data of listData\" class=\"grid-items\">\n    <div class=\"item-grid-container\">\n      <div class=\"content\">\n        <div class=\"item-grid-content\" [ngStyle]=\"{ 'background-image': 'url(' + data.imageUrl + ')' }\"></div>\n        <div class=\"content-item\">\n          <span class=\"content-header\">{{ data.name }}</span>\n          <span class=\"ml-8 content-sub-header\">{{ data.model }}</span>\n          <span class=\"price-details\"><span class=\"item-price\">&#8377;{{ data.price }}</span></span>\n        </div>\n        <div class=\"content-item text-center\">\n          <span>Color: </span><span class=\"item-color\" [ngStyle]=\"{ color: data.color }\">{{ data.color }}</span>\n        </div>\n        <div class=\"content-item text-center\" *ngIf=\"!logout\">\n          <button class=\"btn btn-primary\" (click)=\"updateDetails(data)\">Edit</button>\n          <button class=\"btn btn-primary ml-24\" (click)=\"deleteDetails(data)\">Delete</button>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<app-add-vehicle #addVehicle [dialogData]=\"dialogData\" [user]=\"user\" (vehicleData)=\"vehicleData($event)\"></app-add-vehicle>\n"
+        },
+        {
+            "name": "LoginComponent",
+            "id": "component-LoginComponent-782eab1716faec44a697490098cc80c7",
+            "file": "src/app/login/login.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-login",
+            "styleUrls": [
+                "./login.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./login.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "width",
+                    "line": 75,
+                    "type": "number"
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "isLogin",
+                    "defaultValue": "new EventEmitter()",
+                    "line": 77,
+                    "type": "EventEmitter<any>"
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "errorMessage",
+                    "defaultValue": "''",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 80
+                },
+                {
+                    "name": "loginForm",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 79
+                },
+                {
+                    "name": "modal",
+                    "type": "ElementRef",
+                    "optional": false,
+                    "description": "",
+                    "line": 72,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "'myModal', {static: false}"
+                        }
+                    ]
+                },
+                {
+                    "name": "registrationModal",
+                    "type": "RegistrationComponent",
+                    "optional": false,
+                    "description": "",
+                    "line": 73,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "'registration', {static: false}"
+                        }
+                    ]
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "close",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 95
+                },
+                {
+                    "name": "login",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 99
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 84
+                },
+                {
+                    "name": "open",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 91
+                },
+                {
+                    "name": "registerUser",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 122
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';\nimport { trigger, transition, query, animateChild, style, animate } from '@angular/animations';\nimport { FormGroup, FormBuilder, Validators } from '@angular/forms';\nimport { UserDetailsService } from '../services/user-details.service';\n\nimport { AuthService } from '../services/auth.service';\nimport { RegistrationComponent } from '../registration/registration.component';\n\n@Component({\n  selector: 'app-login',\n  templateUrl: './login.component.html',\n  styleUrls: ['./login.component.scss'],\n  animations: [\n    trigger('host', [\n      transition(':leave', [\n        query('@container,@content', [\n          animateChild()\n        ])\n      ]),\n      transition(':enter', [\n        query('@container,@content', [\n          animateChild()\n        ])\n      ]),\n    ]),\n    trigger('content', [\n      transition(':leave', [\n        style({\n          transform: 'scale(1)'\n        }),\n        animate('100ms ease-out', style({\n          transform: 'scale(1.2)'\n        })),\n        animate('300ms ease-in', style({\n          transform: 'scale(0)'\n        }))\n      ]),\n      transition(':enter', [\n        style({\n          transform: 'scale(0.5)'\n        }),\n        animate('200ms ease-out', style({\n          transform: 'scale(1.2)'\n        })),\n        animate('100ms ease-out', style({\n          transform: 'scale(1)'\n        }))\n      ]),\n    ]),\n    trigger('container', [\n      transition(':leave', [\n        style({\n          opacity: 1,\n        }),\n        animate('230ms ease-in', style({\n          opacity: 0,\n        }))\n      ]),\n      transition(':enter', [\n        style({\n          opacity: 0,\n        }),\n        animate('230ms ease-in', style({\n          opacity: 1,\n        }))\n      ]),\n    ])\n  ]\n})\nexport class LoginComponent implements OnInit {\n\n  @ViewChild('myModal', { static: false }) modal: ElementRef;\n  @ViewChild('registration', {static: false}) registrationModal: RegistrationComponent;\n\n  @Input() width: number;\n\n  @Output('isLogin') isLogin: EventEmitter<any> = new EventEmitter();\n\n  loginForm: FormGroup;\n  errorMessage = '';\n\n  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UserDetailsService) { }\n\n  ngOnInit(): void {\n    this.loginForm = this.fb.group({\n      email: ['', Validators.required],\n      password: ['', Validators.required]\n    })\n  }\n\n  open() {\n    this.modal.nativeElement.style.display = 'block';\n  }\n\n  close() {\n    this.modal.nativeElement.style.display = 'none';\n  }\n\n  login() {\n    if (this.loginForm.invalid) {\n      this.errorMessage = 'Please enter valid username and password!!';\n      return;\n    }\n    const userData = {\n      email: this.loginForm.controls.email.value,\n      password: this.loginForm.controls.password.value\n    };\n    this.authService.login(userData).subscribe((result: any) => {\n      if (result) {\n        window.sessionStorage.setItem('token', result.access_token);\n        localStorage.setItem('user', JSON.stringify(result.user[0]));\n        this.userService.loggedInUser();\n        this.isLogin.emit({ success: true });\n        this.close();\n      }\n    }, (error: any) => {\n      this.errorMessage = error.error.message;\n    });\n\n  }\n\n  registerUser() {\n    this.close();\n    this.registrationModal.open();\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./login.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "fb",
+                        "type": "FormBuilder"
+                    },
+                    {
+                        "name": "authService",
+                        "type": "AuthService"
+                    },
+                    {
+                        "name": "userService",
+                        "type": "UserDetailsService"
+                    }
+                ],
+                "line": 80,
+                "jsdoctags": [
+                    {
+                        "name": "fb",
+                        "type": "FormBuilder",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "authService",
+                        "type": "AuthService",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "userService",
+                        "type": "UserDetailsService",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div #myModal class=\"container\" [@container]>\n    <div class=\"content\" [@content] [style.width]=\"width\">\n        <div class=\"dialog-header\">\n            <span>Login</span>\n        </div>\n        <div class=\"dialog-content\">\n            <div class=\"pb-24\" *ngIf=\"errorMessage\">\n                <span class=\"error\">{{ errorMessage }}</span>\n            </div>\n            <form (submit)=\"login()\" [formGroup]=\"loginForm\">\n                <div class=\"pb-24\">\n                    <label for=\"\">Name</label>\n                    <input type=\"text\" formControlName=\"email\">\n                </div>\n                <div class=\"pb-24\">\n                    <label for=\"\">Model</label>\n                    <input type=\"password\" formControlName=\"password\">\n                </div>\n                <div class=\"text-center\">\n                    <a (click)=\"registerUser()\" class=\"btn btn-link\" >Register User</a>\n                </div>\n            </form>\n        </div>\n        <div class=\"dialog-button-bar\">\n            <button class=\"btn btn-primary\" type=\"submit\" (click)=\"login()\">Login</button>\n            <button class=\"btn btn-transparent ml-24\" (click)=\"close()\">Close</button>\n        </div>\n    </div>\n</div>\n\n<app-registration #registration></app-registration>"
+        },
+        {
+            "name": "PageComponent",
+            "id": "component-PageComponent-cca1a8911321fa17756ce90c90de65cc",
+            "file": "src/stories/page.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "storybook-page",
+            "styleUrls": [
+                "./page.css"
+            ],
+            "styles": [],
+            "template": "<article>    <storybook-header\n      [user]=\"user\"\n      (onLogout)=\"onLogout.emit($event)\"\n      (onLogin)=\"onLogin.emit($event)\"\n      (onCreateAccount)=\"onCreateAccount.emit($event)\"\n    ></storybook-header>\n    <section>\n      <h2>Pages in Storybook</h2>\n      <p>\n        We recommend building UIs with a\n        <a href=\"https://componentdriven.org\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <strong>component-driven</strong>\n        </a>\n        process starting with atomic components and ending with pages.\n      </p>\n      <p>\n        Render pages with mock data. This makes it easy to build and review page states without\n        needing to navigate to them in your app. Here are some handy patterns for managing page data\n        in Storybook:\n      </p>\n      <ul>\n        <li>\n          Use a higher-level connected component. Storybook helps you compose such data from the\n          \"args\" of child component stories\n        </li>\n        <li>\n          Assemble data in the page component from your services. You can mock these services out\n          using Storybook.\n        </li>\n      </ul>\n      <p>\n        Get a guided tutorial on component-driven development at\n        <a href=\"https://www.learnstorybook.com\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Learn Storybook\n        </a>\n        . Read more in the\n        <a href=\"https://storybook.js.org/docs\" target=\"_blank\" rel=\"noopener noreferrer\">\n          docs\n        </a>\n        .\n      </p>\n      <div class=\"tip-wrapper\">\n        <span class=\"tip\">Tip</span> Adjust the width of the canvas with the\n        <svg width=\"10\" height=\"10\" viewBox=\"0 0 12 12\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M1.5 5.2h4.8c.3 0 .5.2.5.4v5.1c-.1.2-.3.3-.4.3H1.4a.5.5 0 01-.5-.4V5.7c0-.3.2-.5.5-.5zm0-2.1h6.9c.3 0 .5.2.5.4v7a.5.5 0 01-1 0V4H1.5a.5.5 0 010-1zm0-2.1h9c.3 0 .5.2.5.4v9.1a.5.5 0 01-1 0V2H1.5a.5.5 0 010-1zm4.3 5.2H2V10h3.8V6.2z\"\n              id=\"a\"\n              fill=\"#999\"\n            />\n          </g>\n        </svg>\n        Viewports addon in the toolbar\n      </div>\n    </section>\n  </article>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "user",
+                    "defaultValue": "null",
+                    "line": 66,
+                    "type": "unknown"
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "onCreateAccount",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "line": 75,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "onLogin",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "line": 69,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "onLogout",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "line": 72,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'storybook-page',\n  template: `<article>\n    <storybook-header\n      [user]=\"user\"\n      (onLogout)=\"onLogout.emit($event)\"\n      (onLogin)=\"onLogin.emit($event)\"\n      (onCreateAccount)=\"onCreateAccount.emit($event)\"\n    ></storybook-header>\n    <section>\n      <h2>Pages in Storybook</h2>\n      <p>\n        We recommend building UIs with a\n        <a href=\"https://componentdriven.org\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <strong>component-driven</strong>\n        </a>\n        process starting with atomic components and ending with pages.\n      </p>\n      <p>\n        Render pages with mock data. This makes it easy to build and review page states without\n        needing to navigate to them in your app. Here are some handy patterns for managing page data\n        in Storybook:\n      </p>\n      <ul>\n        <li>\n          Use a higher-level connected component. Storybook helps you compose such data from the\n          \"args\" of child component stories\n        </li>\n        <li>\n          Assemble data in the page component from your services. You can mock these services out\n          using Storybook.\n        </li>\n      </ul>\n      <p>\n        Get a guided tutorial on component-driven development at\n        <a href=\"https://www.learnstorybook.com\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Learn Storybook\n        </a>\n        . Read more in the\n        <a href=\"https://storybook.js.org/docs\" target=\"_blank\" rel=\"noopener noreferrer\">\n          docs\n        </a>\n        .\n      </p>\n      <div class=\"tip-wrapper\">\n        <span class=\"tip\">Tip</span> Adjust the width of the canvas with the\n        <svg width=\"10\" height=\"10\" viewBox=\"0 0 12 12\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M1.5 5.2h4.8c.3 0 .5.2.5.4v5.1c-.1.2-.3.3-.4.3H1.4a.5.5 0 01-.5-.4V5.7c0-.3.2-.5.5-.5zm0-2.1h6.9c.3 0 .5.2.5.4v7a.5.5 0 01-1 0V4H1.5a.5.5 0 010-1zm0-2.1h9c.3 0 .5.2.5.4v9.1a.5.5 0 01-1 0V2H1.5a.5.5 0 010-1zm4.3 5.2H2V10h3.8V6.2z\"\n              id=\"a\"\n              fill=\"#999\"\n            />\n          </g>\n        </svg>\n        Viewports addon in the toolbar\n      </div>\n    </section>\n  </article>`,\n  styleUrls: ['./page.css'],\n})\nexport default class PageComponent {\n  @Input()\n  user: unknown = null;\n\n  @Output()\n  onLogin = new EventEmitter<Event>();\n\n  @Output()\n  onLogout = new EventEmitter<Event>();\n\n  @Output()\n  onCreateAccount = new EventEmitter<Event>();\n}\n\n// export const Page = ({ user, onLogin, onLogout, onCreateAccount }) => (\n//   <article>\n//     <Header user={user} onLogin={onLogin} onLogout={onLogout} onCreateAccount={onCreateAccount} />\n\n// );\n// Page.propTypes = {\n//   user: PropTypes.shape({}),\n//   onLogin: PropTypes.func.isRequired,\n//   onLogout: PropTypes.func.isRequired,\n//   onCreateAccount: PropTypes.func.isRequired,\n// };\n\n// Page.defaultProps = {\n//   user: null,\n// };\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "section {\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  font-size: 14px;\n  line-height: 24px;\n  padding: 48px 20px;\n  margin: 0 auto;\n  max-width: 600px;\n  color: #333;\n}\n\nh2 {\n  font-weight: 900;\n  font-size: 32px;\n  line-height: 1;\n  margin: 0 0 4px;\n  display: inline-block;\n  vertical-align: top;\n}\n\np {\n  margin: 1em 0;\n}\n\na {\n  text-decoration: none;\n  color: #1ea7fd;\n}\n\nul {\n  padding-left: 30px;\n  margin: 1em 0;\n}\n\nli {\n  margin-bottom: 8px;\n}\n\n.tip {\n  display: inline-block;\n  border-radius: 1em;\n  font-size: 11px;\n  line-height: 12px;\n  font-weight: 700;\n  background: #e7fdd8;\n  color: #66bf3c;\n  padding: 4px 12px;\n  margin-right: 10px;\n  vertical-align: top;\n}\n\n.tip-wrapper {\n  font-size: 13px;\n  line-height: 20px;\n  margin-top: 40px;\n  margin-bottom: 40px;\n}\n\n.tip-wrapper svg {\n  display: inline-block;\n  height: 12px;\n  width: 12px;\n  margin-right: 4px;\n  vertical-align: top;\n  margin-top: 3px;\n}\n\n.tip-wrapper svg path {\n  fill: #1ea7fd;\n}\n",
+                    "styleUrl": "./page.css"
+                }
+            ],
+            "stylesData": ""
+        },
+        {
+            "name": "PageComponent",
+            "id": "component-PageComponent-b65cc8b5e2653cd6af7cf6459aa03883-1",
+            "file": "src/app/page/page/page.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-page",
+            "styleUrls": [
+                "./page.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./page.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 12
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-page',\n  templateUrl: './page.component.html',\n  styleUrls: ['./page.component.scss']\n})\nexport class PageComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./page.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 8
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "isDuplicate": true,
+            "duplicateId": 1,
+            "duplicateName": "PageComponent-1",
+            "templateData": "<router-outlet></router-outlet>\n"
+        },
+        {
+            "name": "RegistrationComponent",
+            "id": "component-RegistrationComponent-cedd4b5f2e3bddd4fae23b73a69f2e6d",
+            "file": "src/app/registration/registration.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-registration",
+            "styleUrls": [
+                "./registration.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./registration.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "width",
+                    "line": 71,
+                    "type": "number"
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "errorMessage",
+                    "defaultValue": "''",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 72
+                },
+                {
+                    "name": "loginForm",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 70
+                },
+                {
+                    "name": "modal",
+                    "type": "ElementRef",
+                    "optional": false,
+                    "description": "",
+                    "line": 69,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "'myModal', {static: false}"
+                        }
+                    ]
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "close",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 86
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 75
+                },
+                {
+                    "name": "open",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 82
+                },
+                {
+                    "name": "register",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 90
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';\nimport { FormGroup, Validators, FormBuilder } from '@angular/forms';\nimport { trigger, transition, query, animateChild, style, animate } from '@angular/animations';\nimport { AuthService } from '../services/auth.service';\nimport { UserDetailsService } from '../services/user-details.service';\n\n@Component({\n  selector: 'app-registration',\n  templateUrl: './registration.component.html',\n  styleUrls: ['./registration.component.scss'],\n  animations: [\n    trigger('host', [\n      transition(':leave', [\n        query('@container,@content', [\n          animateChild()\n        ])\n      ]),\n      transition(':enter', [\n        query('@container,@content', [\n          animateChild()\n        ])\n      ]),\n    ]),\n    trigger('content', [\n      transition(':leave', [\n        style({\n          transform: 'scale(1)'\n        }),\n        animate('100ms ease-out', style({\n          transform: 'scale(1.2)'\n        })),\n        animate('300ms ease-in', style({\n          transform: 'scale(0)'\n        }))\n      ]),\n      transition(':enter', [\n        style({\n          transform: 'scale(0.5)'\n        }),\n        animate('200ms ease-out', style({\n          transform: 'scale(1.2)'\n        })),\n        animate('100ms ease-out', style({\n          transform: 'scale(1)'\n        }))\n      ]),\n    ]),\n    trigger('container', [\n      transition(':leave', [\n        style({\n          opacity: 1,\n        }),\n        animate('230ms ease-in', style({\n          opacity: 0,\n        }))\n      ]),\n      transition(':enter', [\n        style({\n          opacity: 0,\n        }),\n        animate('230ms ease-in', style({\n          opacity: 1,\n        }))\n      ]),\n    ])\n  ]\n})\nexport class RegistrationComponent implements OnInit {\n  @ViewChild('myModal', { static: false }) modal: ElementRef;\n  loginForm: FormGroup;\n  @Input() width: number;\n  errorMessage = '';\n  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UserDetailsService) { }\n\n  ngOnInit(): void {\n    this.loginForm = this.fb.group({\n      email: ['', Validators.required],\n      password: ['', Validators.required]\n    })\n  }\n\n  open() {\n    this.modal.nativeElement.style.display = 'block';\n  }\n\n  close() {\n    this.modal.nativeElement.style.display = 'none';\n  }\n\n  register() {\n    if (!this.loginForm.valid) {\n      this.errorMessage = 'Please enter all the details before saving!!';\n      return;\n    }\n    const userData = {\n      email: this.loginForm.controls.email.value,\n      password: this.loginForm.controls.password.value\n    }\n    this.authService.registerUser(userData).subscribe((result: any) => {\n      this.close();\n    }, (error: any) => {\n      this.errorMessage = error.error.message;\n    })\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./registration.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "fb",
+                        "type": "FormBuilder"
+                    },
+                    {
+                        "name": "authService",
+                        "type": "AuthService"
+                    },
+                    {
+                        "name": "userService",
+                        "type": "UserDetailsService"
+                    }
+                ],
+                "line": 72,
+                "jsdoctags": [
+                    {
+                        "name": "fb",
+                        "type": "FormBuilder",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "authService",
+                        "type": "AuthService",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "userService",
+                        "type": "UserDetailsService",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div #myModal class=\"container\" [@container]>\n    <div class=\"content\" [@content] [style.width]=\"width\">\n        <div class=\"dialog-header\">\n            <span>Register User</span>\n        </div>\n        <div class=\"dialog-content\">\n            <div class=\"pb-24\" *ngIf=\"errorMessage\">\n                <span class=\"error\">{{ errorMessage }}</span>\n            </div>\n            <form (submit)=\"register()\" [formGroup]=\"loginForm\">\n                <div class=\"pb-24\">\n                    <label for=\"\">Email</label>\n                    <input type=\"text\" formControlName=\"email\">\n                </div>\n                <div class=\"pb-24\">\n                    <label for=\"\">Password</label>\n                    <input type=\"password\" formControlName=\"password\">\n                </div>\n            </form>\n        </div>\n        <div class=\"dialog-button-bar\">\n            <button class=\"btn btn-primary\" type=\"submit\" (click)=\"register()\">Register User</button>\n            <button class=\"btn btn-transparent ml-24\" (click)=\"close()\">Close</button>\n        </div>\n    </div>\n</div>"
+        },
+        {
+            "name": "ToggleSwitchComponent",
+            "id": "component-ToggleSwitchComponent-910708152743479122735d756dff2d3e",
+            "file": "src/app/toggle-switch/toggle-switch.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-toggle-switch",
+            "styleUrls": [
+                "./toggle-switch.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./toggle-switch.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "selected",
+                    "defaultValue": "false",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 14
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-toggle-switch',\n  templateUrl: './toggle-switch.component.html',\n  styleUrls: ['./toggle-switch.component.scss']\n})\nexport class ToggleSwitchComponent implements OnInit {\n\n  selected: boolean = false;\n  \n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./toggle-switch.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 10
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<label class=\"toggle-switch\">\n  <input type=\"checkbox\" [(ngModel)]=\"selected\">\n  <div class=\"slider\"></div>\n</label>"
+        }
+    ],
+    "modules": [
+        {
+            "name": "AppModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": [
+                        {
+                            "name": "HttpInterceptorService"
+                        }
+                    ]
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        },
+                        {
+                            "name": "FooterComponent"
+                        },
+                        {
+                            "name": "LoginComponent"
+                        },
+                        {
+                            "name": "RegistrationComponent"
+                        },
+                        {
+                            "name": "ToggleSwitchComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "AppRoutingModule"
+                        },
+                        {
+                            "name": "SharedModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "AppRoutingModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "PageModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": [
+                        {
+                            "name": "VehicleService"
+                        }
+                    ]
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "AddVehicleComponent"
+                        },
+                        {
+                            "name": "ListComponent"
+                        },
+                        {
+                            "name": "PageComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "PageRoutingModule"
+                        },
+                        {
+                            "name": "SharedModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "PageRoutingModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "SharedModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        }
+    ],
+    "miscellaneous": {
+        "variables": [
+            {
+                "name": "_themeReducer",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/state-management/theme.reducer.ts",
+                "type": "",
+                "defaultValue": "createReducer(\r\n    initialState,\r\n    on(changeTheme, (state) => {\r\n        if (state === 'dark') {\r\n            return 'light';\r\n        } else {\r\n            return 'dark';\r\n        }\r\n    })\r\n)"
+            },
+            {
+                "name": "changeTheme",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/state-management/theme.actions.ts",
+                "type": "",
+                "defaultValue": "createAction('[Header Component] Change Theme')"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/test.ts",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/header/header.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n    component: HeaderComponent,\r\n    template: `\r\n  <div class=\"header\">\r\n  <div class=\"logo\">\r\n    <img src=\"../../assets/images/logo.png\" alt=\"\">\r\n  </div>\r\n\r\n  <div class=\"section-right\">\r\n    <div class=\"switch-section\">\r\n      <!-- <app-toggle-switch></app-toggle-switch> -->\r\n      <toggle-switch [selectedTheme]=\"theme | async\"></toggle-switch>\r\n      <span>Change Theme</span>\r\n    </div>\r\n    <div>\r\n      <button *ngIf=\"!loggedIn\" class=\"btn btn-transparent ml-8\" (click)=\"openModal()\">Login</button>\r\n      <button *ngIf=\"loggedIn\" class=\"btn btn-transparent ml-8\" (click)=\"logout()\">Logout</button>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<app-login #login [width]=\"'300px'\" (isLogin)=\"userLoggedIn($event)\"></app-login>\r\n  `\r\n    //   props: {\r\n    //     selectedTheme: taskData,\r\n    //   },\r\n})"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.prod.ts",
+                "type": "object",
+                "defaultValue": "{\n  production: true\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.ts",
+                "type": "object",
+                "defaultValue": "{\n  production: false,\n  API_ENDPOINT: 'http://localhost:8000'\n}"
+            },
+            {
+                "name": "initialState",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/state-management/theme.reducer.ts",
+                "type": "string",
+                "defaultValue": "'light'"
+            },
+            {
+                "name": "Large",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Button.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "ListModel",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/page/models/list.model.ts",
+                "type": "[]",
+                "defaultValue": "[\r\n  {\r\n    name: 'Mercedes',\r\n    model: 'Benz',\r\n    color: 'Black',\r\n    chasisNumber: '123456',\r\n    price: '30L',\r\n    imageUrl: './assets/images/Merc.jpg'\r\n  },\r\n  {\r\n    name: 'Audi',\r\n    model: 'A8',\r\n    color: 'Red',\r\n    chasisNumber: '323452',\r\n    price: '25L',\r\n    imageUrl: './assets/images/Audi.jpg'\r\n  },\r\n  {\r\n    name: 'Swift',\r\n    model: 'LXI1197',\r\n    color: 'Blue',\r\n    chasisNumber: '987563',\r\n    price: '8.5L',\r\n    imageUrl: './assets/images/Swift.jpg'\r\n  },\r\n  {\r\n    name: 'BMW',\r\n    model: 'X5',\r\n    color: 'Silver',\r\n    chasisNumber: '394839',\r\n    price: '35L',\r\n    imageUrl: './assets/images/BMW.jpg'\r\n  }\r\n]"
+            },
+            {
+                "name": "LoggedIn",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Header.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "LoggedIn",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Page.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "LoggedOut",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Header.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "LoggedOut",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Page.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Primary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Button.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/test.ts",
+                "type": "literal type"
+            },
+            {
+                "name": "Secondary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Button.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Small",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Button.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "taskData",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/header/header.stories.ts",
+                "type": "object",
+                "defaultValue": "{\r\n    id: '1',\r\n\r\n    state: 'Task_INBOX',\r\n    updated_at: new Date(2019, 0, 1, 9, 0),\r\n}"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Button.stories.ts",
+                "type": "Story<Button>",
+                "defaultValue": "(args: Button) => ({\n  component: Button,\n  props: args,\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Header.stories.ts",
+                "type": "Story<Header>",
+                "defaultValue": "(args: Header) => ({\n  component: Header,\n  props: args,\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Page.stories.ts",
+                "type": "Story<Page>",
+                "defaultValue": "(args: Page) => ({\n  component: Page,\n  props: args,\n})"
+            }
+        ],
+        "functions": [
+            {
+                "name": "themeReducer",
+                "file": "src/app/state-management/theme.reducer.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "description": "",
+                "args": [
+                    {
+                        "name": "state",
+                        "type": ""
+                    },
+                    {
+                        "name": "action",
+                        "type": ""
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "state",
+                        "type": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "action",
+                        "type": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            }
+        ],
+        "typealiases": [],
+        "enumerations": [],
+        "groupedVariables": {
+            "src/app/state-management/theme.reducer.ts": [
+                {
+                    "name": "_themeReducer",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/state-management/theme.reducer.ts",
+                    "type": "",
+                    "defaultValue": "createReducer(\r\n    initialState,\r\n    on(changeTheme, (state) => {\r\n        if (state === 'dark') {\r\n            return 'light';\r\n        } else {\r\n            return 'dark';\r\n        }\r\n    })\r\n)"
+                },
+                {
+                    "name": "initialState",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/state-management/theme.reducer.ts",
+                    "type": "string",
+                    "defaultValue": "'light'"
+                }
+            ],
+            "src/app/state-management/theme.actions.ts": [
+                {
+                    "name": "changeTheme",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/state-management/theme.actions.ts",
+                    "type": "",
+                    "defaultValue": "createAction('[Header Component] Change Theme')"
+                }
+            ],
+            "src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/test.ts",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/test.ts",
+                    "type": "literal type"
+                }
+            ],
+            "src/app/header/header.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/header/header.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n    component: HeaderComponent,\r\n    template: `\r\n  <div class=\"header\">\r\n  <div class=\"logo\">\r\n    <img src=\"../../assets/images/logo.png\" alt=\"\">\r\n  </div>\r\n\r\n  <div class=\"section-right\">\r\n    <div class=\"switch-section\">\r\n      <!-- <app-toggle-switch></app-toggle-switch> -->\r\n      <toggle-switch [selectedTheme]=\"theme | async\"></toggle-switch>\r\n      <span>Change Theme</span>\r\n    </div>\r\n    <div>\r\n      <button *ngIf=\"!loggedIn\" class=\"btn btn-transparent ml-8\" (click)=\"openModal()\">Login</button>\r\n      <button *ngIf=\"loggedIn\" class=\"btn btn-transparent ml-8\" (click)=\"logout()\">Logout</button>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<app-login #login [width]=\"'300px'\" (isLogin)=\"userLoggedIn($event)\"></app-login>\r\n  `\r\n    //   props: {\r\n    //     selectedTheme: taskData,\r\n    //   },\r\n})"
+                },
+                {
+                    "name": "taskData",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/header/header.stories.ts",
+                    "type": "object",
+                    "defaultValue": "{\r\n    id: '1',\r\n\r\n    state: 'Task_INBOX',\r\n    updated_at: new Date(2019, 0, 1, 9, 0),\r\n}"
+                }
+            ],
+            "src/environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.prod.ts",
+                    "type": "object",
+                    "defaultValue": "{\n  production: true\n}"
+                }
+            ],
+            "src/environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.ts",
+                    "type": "object",
+                    "defaultValue": "{\n  production: false,\n  API_ENDPOINT: 'http://localhost:8000'\n}"
+                }
+            ],
+            "src/stories/Button.stories.ts": [
+                {
+                    "name": "Large",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Button.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Primary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Button.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Secondary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Button.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Small",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Button.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Button.stories.ts",
+                    "type": "Story<Button>",
+                    "defaultValue": "(args: Button) => ({\n  component: Button,\n  props: args,\n})"
+                }
+            ],
+            "src/app/page/models/list.model.ts": [
+                {
+                    "name": "ListModel",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/page/models/list.model.ts",
+                    "type": "[]",
+                    "defaultValue": "[\r\n  {\r\n    name: 'Mercedes',\r\n    model: 'Benz',\r\n    color: 'Black',\r\n    chasisNumber: '123456',\r\n    price: '30L',\r\n    imageUrl: './assets/images/Merc.jpg'\r\n  },\r\n  {\r\n    name: 'Audi',\r\n    model: 'A8',\r\n    color: 'Red',\r\n    chasisNumber: '323452',\r\n    price: '25L',\r\n    imageUrl: './assets/images/Audi.jpg'\r\n  },\r\n  {\r\n    name: 'Swift',\r\n    model: 'LXI1197',\r\n    color: 'Blue',\r\n    chasisNumber: '987563',\r\n    price: '8.5L',\r\n    imageUrl: './assets/images/Swift.jpg'\r\n  },\r\n  {\r\n    name: 'BMW',\r\n    model: 'X5',\r\n    color: 'Silver',\r\n    chasisNumber: '394839',\r\n    price: '35L',\r\n    imageUrl: './assets/images/BMW.jpg'\r\n  }\r\n]"
+                }
+            ],
+            "src/stories/Header.stories.ts": [
+                {
+                    "name": "LoggedIn",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Header.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "LoggedOut",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Header.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Header.stories.ts",
+                    "type": "Story<Header>",
+                    "defaultValue": "(args: Header) => ({\n  component: Header,\n  props: args,\n})"
+                }
+            ],
+            "src/stories/Page.stories.ts": [
+                {
+                    "name": "LoggedIn",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Page.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "LoggedOut",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Page.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Page.stories.ts",
+                    "type": "Story<Page>",
+                    "defaultValue": "(args: Page) => ({\n  component: Page,\n  props: args,\n})"
+                }
+            ]
+        },
+        "groupedFunctions": {
+            "src/app/state-management/theme.reducer.ts": [
+                {
+                    "name": "themeReducer",
+                    "file": "src/app/state-management/theme.reducer.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "state",
+                            "type": ""
+                        },
+                        {
+                            "name": "action",
+                            "type": ""
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "state",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "action",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "groupedEnumerations": {},
+        "groupedTypeAliases": {}
+    },
+    "routes": {
+        "name": "<root>",
+        "kind": "module",
+        "className": "AppModule",
+        "children": [
+            {
+                "name": "routes",
+                "filename": "src/app/app-routing.module.ts",
+                "module": "AppRoutingModule",
+                "children": [
+                    {
+                        "path": "",
+                        "loadChildren": "./page/page.module#PageModule",
+                        "children": [
+                            {
+                                "kind": "module",
+                                "children": [
+                                    {
+                                        "name": "routes",
+                                        "filename": "src/app/page/page-routing.module.ts",
+                                        "module": "PageRoutingModule",
+                                        "children": [
+                                            {
+                                                "path": "",
+                                                "component": "PageComponent",
+                                                "children": [
+                                                    {
+                                                        "path": "",
+                                                        "redirectTo": "list",
+                                                        "pathMatch": "full"
+                                                    },
+                                                    {
+                                                        "path": "list",
+                                                        "component": "ListComponent"
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "kind": "module"
+                                    }
+                                ],
+                                "module": "PageModule"
+                            }
+                        ]
+                    }
+                ],
+                "kind": "module"
+            }
+        ]
+    },
+    "coverage": {
+        "count": 2,
+        "status": "low",
+        "files": [
+            {
+                "filePath": "e2e/src/app.po.ts",
+                "type": "class",
+                "linktype": "classe",
+                "name": "AppPage",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AppComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app.constant.ts",
+                "type": "class",
+                "linktype": "classe",
+                "name": "ApiEndpoints",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/footer/footer.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "FooterComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/header/header.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "HeaderComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/14",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/header/header.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/header/header.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "taskData",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/interceptor/http-interceptor.service.ts",
+                "type": "interceptor",
+                "linktype": "interceptor",
+                "name": "HttpInterceptorService",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/lit-elements/toggle-switch.ts",
+                "type": "class",
+                "linktype": "classe",
+                "name": "ToggleSwitch",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/login/login.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "LoginComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/13",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/page/add-vehicle/add-vehicle.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AddVehicleComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/16",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/page/list/list.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ListComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/16",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/page/models/list.model.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ListModel",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/page/page/page.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "PageComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/registration/registration.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "RegistrationComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/10",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/services/auth.service.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "AuthService",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/services/user-details.service.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "UserDetailsService",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/services/vehicle.service.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "VehicleService",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/state-management/theme.actions.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "changeTheme",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/state-management/theme.reducer.ts",
+                "type": "function",
+                "linksubtype": "function",
+                "name": "themeReducer",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/state-management/theme.reducer.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "_themeReducer",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/state-management/theme.reducer.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "initialState",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/toggle-switch/toggle-switch.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ToggleSwitchComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.prod.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Large",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Primary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Secondary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Small",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Header.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LoggedIn",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Header.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LoggedOut",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Header.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Page.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LoggedIn",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Page.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LoggedOut",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Page.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/button.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonComponent",
+                "coveragePercent": 83,
+                "coverageCount": "5/6",
+                "status": "very-good"
+            },
+            {
+                "filePath": "src/stories/header.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "HeaderComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/page.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "PageComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/test.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "context",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/test.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "require",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            }
+        ]
+    }
+}

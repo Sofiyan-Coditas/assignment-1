@@ -1,7 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoginComponent } from '../login/login.component';
 import { UserDetailsService } from '../services/user-details.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import { take, map } from 'rxjs/operators';
+import { ToggleSwitch } from '../lit-elements/toggle-switch';
+import { Store, select, State, createSelector } from '@ngrx/store';
+import { changeTheme } from '../state-management/theme.actions';
+
+console.assert(ToggleSwitch !== undefined);
 
 @Component({
   selector: 'app-header',
@@ -13,10 +19,19 @@ export class HeaderComponent implements OnInit {
   @ViewChild('login', {static: false}) modal: LoginComponent;
 
   loggedIn = false;
+  lightTheme = true;
 
   userData: Subscription;
 
-  constructor(private userService: UserDetailsService) { }
+  theme: Observable<string>;
+
+  themeSubscrition: Subscription;
+
+  initialTheme = '';
+
+  constructor(private userService: UserDetailsService, private store: Store<{theme: string}>) {
+    this.theme = this.store.pipe(select('theme'));
+  }
 
   ngOnInit(): void {
     const token = window.sessionStorage.getItem('token');
@@ -24,17 +39,15 @@ export class HeaderComponent implements OnInit {
       this.loggedIn = true;
     }
 
-    if (localStorage.getItem('user')) {
-      this.loggedIn = true;
-    } else {
-      this.loggedIn = false;
-    }
-    this.userData = this.userService.userDetails().subscribe((result: any) => {
-      if (result) {
-        this.loggedIn = true;
-      } else {
-        this.loggedIn = false;
-      }
+    this.themeSubscrition = this.theme.pipe(
+      map(x => {
+        this.initialTheme = x;
+      })
+    ).subscribe();
+
+    const toggleSwitch = document.querySelector('toggle-switch');
+    toggleSwitch.addEventListener('changedTheme', (event) => {
+      this.store.dispatch(changeTheme());
     })
   }
 
@@ -57,4 +70,9 @@ export class HeaderComponent implements OnInit {
     this.loggedIn = false;
   }
 
+  themeChange(event) {
+    event.stopPropagation();
+    this.store.dispatch(changeTheme());
+  }
+  
 }

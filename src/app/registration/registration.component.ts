@@ -67,13 +67,13 @@ import { UserDetailsService } from '../services/user-details.service';
 })
 export class RegistrationComponent implements OnInit {
   @ViewChild('myModal', { static: false }) modal: ElementRef;
-  loginForm: FormGroup;
+  registrationForm: FormGroup;
   @Input() width: number;
   errorMessage = '';
-  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UserDetailsService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.loginForm = this.fb.group({
+    this.registrationForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
     })
@@ -88,13 +88,13 @@ export class RegistrationComponent implements OnInit {
   }
 
   register() {
-    if (!this.loginForm.valid) {
+    if (!this.registrationForm.valid) {
       this.errorMessage = 'Please enter all the details before saving!!';
       return;
     }
     const userData = {
-      email: this.loginForm.controls.email.value,
-      password: this.loginForm.controls.password.value
+      email: this.registrationForm.controls.email.value,
+      password: this.registrationForm.controls.password.value
     }
     this.authService.registerUser(userData).subscribe((result: any) => {
       this.close();

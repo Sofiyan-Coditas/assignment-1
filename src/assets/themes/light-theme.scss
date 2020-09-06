@@ -1,0 +1,322 @@
+@import "./_variables.scss";
+@import "./_mixins.scss";
+
+.light {
+    $text-color: #000000;
+    $primary-color: #ffffff;
+    $light-text-color: #a9a9a9;
+    $background-color: #ececec;
+
+    $primary-btn-color: #3D72A4;
+
+    $price-text-color: #480000;
+
+    $border-color: #c8c8c8;
+
+    $error-text-color: #ff0000;
+
+    /**** Modal Variables ****/
+    $modal-background: #fefefe;
+    $modal-border-color: #888;
+    .header {
+        padding: $space-16 $space-24;
+        // box-shadow: 0px 0 10px rgba(0, 0, 0, 0.5);
+        border-bottom: 1px solid $border-color;
+        display: flex;
+        flex-direction: row;
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            flex: 33.33%;
+            justify-content: center;
+            height: 50px;
+            width: 200px;
+        }
+
+        .section-right {
+            display: flex;
+            flex: 66.33%;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+
+            .switch-section {
+                span {
+                    margin-left: $space-8;
+                    vertical-align: super;
+                }
+            }
+        }
+    }
+
+    .main {
+        padding: $space-16 $space-24;
+        background-color: $background-color;
+        // height: 100%;
+
+        .grid-container {
+            margin: 0 20%;
+            display: grid;
+            grid-template-columns: 50% 50%;
+
+            .grid-items {
+                margin: 0 $space-16 $space-32;
+                border: 1px solid $border-color;
+                box-shadow: 0px 0 10px rgba(0, 0, 0, 0.5);
+
+                .item-grid-container {
+                    .content {
+                        display: grid;
+                        grid-template-rows: auto;
+                        background-color: $primary-color;
+                        .item-grid-content {
+                            width: 100%;
+                            height: 200px;
+                            margin-bottom: $space-12;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            background-size: cover;
+                        }
+                        .item-price {
+                            @include custom-fontSize($space-24, $price-text-color);
+                            font-weight: bold;
+                            float: right;
+                        }
+                        .item-color {
+                            font-weight: bold;
+                        }
+                        .content-item {
+                            padding: $space-16;
+                            .content-header {
+                                @include custom-fontSize($space-24);
+                            }
+                            .content-sub-header {
+                                @include custom-fontSize($space-16, $light-text-color);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .button-bar {
+            margin: 0 20%;
+            padding: $space-16;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+        }
+    }
+
+    /**** Toggle Switch Styles ****/
+
+    .toggle-switch {
+        height: 20px;
+        width: 36px;
+        display: inline-block;
+        position: relative;
+        input {
+            display: none;
+            &:checked + .slider {
+                background-color: blue;
+            }
+            &:checked + .slider::after {
+                -webkit-transform: translateX(12px);
+                -ms-transform: translateX(12px);
+                transform: translateX(12px);
+            }
+        }
+        .slider {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background-color: grey;
+            transition: 0.5s;
+            border-radius: 12px;
+            &::after {
+                position: absolute;
+                content: "";
+                height: 12px;
+                width: 16px;
+                background-color: $primary-color;
+                left: 4px;
+                bottom: 4px;
+                transition: 0.5s;
+                border-radius: 10px;
+            }
+        }
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        padding: $space-16 $space-24;
+        width: 100%;
+        background-color: $primary-color;
+        border-top: 1px solid $border-color;
+        // box-shadow: 0px 0 10px rgba(0, 0, 0, 0.5);
+
+        p {
+            margin: 0;
+        }
+    }
+
+    .ml-8 {
+        margin-left: $space-8;
+    }
+
+    .ml-16 {
+        margin-left: $space-16;
+    }
+
+    .ml-24 {
+        margin-left: $space-24;
+    }
+
+    .pb-24 {
+        padding-bottom: $space-24;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .error {
+        color: $error-text-color;
+        font-weight: bold;
+    }
+
+    /**** Button Styles ****/
+
+    .btn {
+        padding: $space-12 $space-16;
+        font-family: Calibri;
+        @include custom-fontSize(14px);
+        &:hover {
+            box-shadow: 0px 0 10px rgba(0, 0, 0, 0.5);
+        }
+        &:focus {
+            outline: 0;
+        }
+    }
+
+    .btn-transparent {
+        border: 1px solid $border-color;
+        background-color: $primary-color;
+        color: $text-color;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: $primary-btn-color;
+        color: $primary-color;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .btn-link {
+        padding: 0;
+        color: $primary-btn-color;
+        cursor: pointer;
+        &:hover {
+            box-shadow: none;
+        }
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 50% 50%;
+
+        .form-field {
+            padding: 0 $space-12 $space-12 0;
+        }
+    }
+
+    input {
+        width: 100%;
+        border: 1px solid $border-color;
+        padding: $space-12;
+        @include custom-fontSize($space-14, "", $space-16);
+        box-sizing: border-box;
+        &:focus {
+            outline: 0;
+        }
+    }
+
+    /**** Modal Styles ****/
+
+    .container {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+
+        .content {
+            background-color: $modal-background;
+            margin: auto;
+            border: 1px solid $modal-border-color;
+            width: 80%;
+            border-radius: 5px;
+
+            .dialog-header {
+                padding: $space-24;
+                border-bottom: 1px solid $border-color;
+                span {
+                    @include custom-fontSize(24px);
+                }
+            }
+            .dialog-content {
+                padding: $space-24;
+            }
+
+            .dialog-button-bar {
+                border-top: 1px solid $border-color;
+                padding: $space-16;
+                display: flex;
+                justify-content: flex-end;
+            }
+        }
+    }
+
+    /**** Media Queries ****/
+    @media screen and (max-width: 768px) {
+        .main {
+            .grid-container,
+            .button-bar {
+                margin: 0 5%;
+                .grid-items {
+                    .item-grid-container {
+                        .content {
+                            .item-price {
+                                float: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 540px) {
+        .main {
+            .grid-container,
+            .button-bar {
+                margin: 0 5%;
+                grid-template-columns: 100%;
+            }
+        }
+    }
+}
