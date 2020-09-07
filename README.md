@@ -6,11 +6,11 @@
 ## NgRx for Sate Management
  Yes, For switching theme
 ## Test Cases For All Component Using Jest
- Yes
+ Yes, Test cases are pending.
 ## Application is accessible
   No
 ## Storybook
-  Yes
+  No
 ## Theme [Light | Dark]
   Yes
 ## lit-Element
