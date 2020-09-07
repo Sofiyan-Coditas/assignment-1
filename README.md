@@ -1,23 +1,23 @@
 # AutoHaven
-# Latest Angular CLI
+## Latest Angular CLI
   Yes
-# No other library use for design [Bootstrap, Material]
+## No other library use for design [Bootstrap, Material]
  Yes
-# NgRx for Sate Management
+## NgRx for Sate Management
  Yes, For switching theme
- # Test Cases For All Component Using Jest
+## Test Cases For All Component Using Jest
  Yes
-# Application is accessible
+## Application is accessible
   No
-# Storybook
+## Storybook
   Yes
-# Theme [Light | Dark]
+## Theme [Light | Dark]
   Yes
-# lit-Element
+## lit-Element
  Yes
-# Device and Browser Support
+## Device and Browser Support
  Yes
-# CRUD Operations
+## CRUD Operations
 Yes
-# Login/Logout and Registration
+## Login/Logout and Registration
 Yes
