@@ -3,6 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegistrationComponent } from '../registration/registration.component';
+import { AuthService } from '../services/auth.service';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -10,8 +12,13 @@ describe('LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent, RegistrationComponent ],
-      imports: [ReactiveFormsModule]
+      declarations: [ LoginComponent ],
+      imports: [ReactiveFormsModule],
+      providers: [AuthService]
+    }).overrideModule(BrowserDynamicTestingModule, {
+      set: {
+        entryComponents: [ RegistrationComponent ],
+      }
     })
     .compileComponents();
   }));

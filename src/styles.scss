@@ -3,12 +3,90 @@
 @import "./assets/themes/_variables.scss";
 @import "./assets/themes/_mixins.scss";
 
-@import "./assets/themes/light-theme.scss";
-@import "./assets/themes/dark-theme.scss";
 
 html, body {
   font-family: Calibri, Arial, sans-serif;
   @include custom-fontSize();
   margin: 0;
   height: 100%;
+}
+
+body .light {
+    --text-color: #000000;
+    --primary-color: #ffffff;
+    --light-text-color: #a9a9a9;
+    --background-color: #ececec;
+
+    --primary-btn-color: #3D72A4;
+    --primary-btn-text-color: #fff;
+
+    --transparent-btn-color: #fff;
+    --transparent-btn-text-color: #000;
+
+    --content-background-color: #fff;
+
+    --price-text-color: #480000;
+
+    --border-color: #c8c8c8;
+
+    --error-text-color: #ff0000;
+
+    /**** Modal Variables ****/
+    --modal-background: #fefefe;
+    --modal-border-color: #888;
+
+    .error {
+      color: var(--error-text-color);
+      font-weight: bold;
+    }
+}
+
+body .dark {
+  --text-color: #fff;
+  --primary-color: #ff8080;
+  --light-text-color: #a9a9a9;
+  --background-color: #ffcccc;
+
+  --primary-btn-color: var(--primary-color);
+  --primary-btn-text-color: var(--text-color);
+
+  --transparent-btn-color: #fff;
+  --transparent-btn-text-color: var(--primary-color);
+
+  --content-background-color: #ffb3b3;
+
+  --price-text-color: #480000;
+
+  --border-color: #c8c8c8;
+
+  --error-text-color: #ff0000;
+
+  /**** Modal Variables ****/
+  --modal-background: #fefefe;
+  --modal-border-color: #888;
+
+  .error {
+    color: var(--error-text-color);
+    font-weight: bold;
+  }
+}
+
+.ml-8 {
+  margin-left: $space-8;
+}
+
+.ml-16 {
+  margin-left: $space-16;
+}
+
+.ml-24 {
+  margin-left: $space-24;
+}
+
+.pb-24 {
+  padding-bottom: $space-24;
+}
+
+.text-center {
+  text-align: center;
 }

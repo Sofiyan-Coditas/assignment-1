@@ -1,0 +1,99 @@
+@import '../../../assets/themes/_variables.scss';
+@import '../../../assets/themes/_mixins.scss';
+
+/**** Modal Styles ****/
+
+.container {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+
+    .content {
+        background-color: var(--modal-background);
+        margin: auto;
+        border: 1px solid var(--modal-border-color);
+        width: 80%;
+        border-radius: 5px;
+
+        .dialog-header {
+            padding: $space-24;
+            border-bottom: 1px solid var(--border-color);
+            span {
+                @include custom-fontSize(24px);
+            }
+        }
+        .dialog-content {
+            padding: $space-24;
+        }
+
+        .dialog-button-bar {
+            border-top: 1px solid var(--border-color);
+            padding: $space-16;
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+}
+
+.btn {
+    padding: $space-12 $space-16;
+    font-family: Calibri;
+    @include custom-fontSize(14px);
+    &:hover {
+        box-shadow: 0px 0 10px rgba(0, 0, 0, 0.5);
+    }
+    &:focus {
+        outline: 0;
+    }
+}
+
+.btn-transparent {
+    border: none;
+    background-color: var(--transparent-btn-color);
+    color: var(--transparent-btn-text-color);
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: var(--primary-btn-color);
+    color: var(--primary-btn-text-color);
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-link {
+    padding: 0;
+    color: var(--primary-btn-color);
+    cursor: pointer;
+    &:hover {
+        box-shadow: none;
+    }
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+
+    .form-field {
+        padding: 0 $space-12 $space-12 0;
+    }
+}
+
+input {
+    width: 100%;
+    border: 1px solid var(--border-color);
+    padding: $space-12;
+    @include custom-fontSize($space-14, "", $space-16);
+    box-sizing: border-box;
+    &:focus {
+        outline: 0;
+    }
+}

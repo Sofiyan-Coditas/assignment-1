@@ -392,7 +392,7 @@
     "components": [
         {
             "name": "AddVehicleComponent",
-            "id": "component-AddVehicleComponent-a9af1807f5c3c3c4e2827a1b505108f0",
+            "id": "component-AddVehicleComponent-c4d62e801fe2f172f36cceb19ff8edbb",
             "file": "src/app/page/add-vehicle/add-vehicle.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -411,18 +411,18 @@
             "inputsClass": [
                 {
                     "name": "dialogData",
-                    "line": 69
+                    "line": 13
                 },
                 {
                     "name": "user",
-                    "line": 70
+                    "line": 14
                 }
             ],
             "outputsClass": [
                 {
                     "name": "vehicleData",
                     "defaultValue": "new EventEmitter()",
-                    "line": 79,
+                    "line": 23,
                     "type": "EventEmitter<any>"
                 }
             ],
@@ -433,7 +433,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 72
+                    "line": 16
                 },
                 {
                     "name": "errorMessage",
@@ -441,21 +441,21 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 71
+                    "line": 15
                 },
                 {
                     "name": "form",
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 74
+                    "line": 18
                 },
                 {
                     "name": "modal",
                     "type": "ElementRef",
                     "optional": false,
                     "description": "",
-                    "line": 78,
+                    "line": 22,
                     "decorators": [
                         {
                             "name": "ViewChild",
@@ -471,7 +471,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 85
+                    "line": 29
                 },
                 {
                     "name": "ngOnChanges",
@@ -479,7 +479,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 99
+                    "line": 43
                 },
                 {
                     "name": "ngOnInit",
@@ -487,7 +487,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 88
+                    "line": 32
                 },
                 {
                     "name": "open",
@@ -495,7 +495,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 81
+                    "line": 25
                 },
                 {
                     "name": "save",
@@ -503,7 +503,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 106
+                    "line": 50
                 },
                 {
                     "name": "setFormValues",
@@ -511,7 +511,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 128
+                    "line": 72
                 },
                 {
                     "name": "update",
@@ -519,7 +519,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 132
+                    "line": 76
                 }
             ],
             "hostBindings": [],
@@ -527,11 +527,11 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';\nimport { animate, state, style, transition, trigger, animateChild, query } from '@angular/animations';\nimport { FormBuilder, FormGroup, Validators } from '@angular/forms';\nimport { VehicleService } from 'src/app/services/vehicle.service';\n\n@Component({\n  selector: 'app-add-vehicle',\n  templateUrl: './add-vehicle.component.html',\n  styleUrls: ['./add-vehicle.component.scss'],\n  animations: [\n    trigger('host', [\n      transition(':leave', [\n        query('@container,@content', [\n          animateChild()\n        ])\n      ]),\n      transition(':enter', [\n        query('@container,@content', [\n          animateChild()\n        ])\n      ]),\n    ]),\n    trigger('content', [\n      transition(':leave', [\n        style({\n          transform: 'scale(1)'\n        }),\n        animate('100ms ease-out', style({\n          transform: 'scale(1.2)'\n        })),\n        animate('300ms ease-in', style({\n          transform: 'scale(0)'\n        }))\n      ]),\n      transition(':enter', [\n        style({\n          transform: 'scale(0.5)'\n        }),\n        animate('200ms ease-out', style({\n          transform: 'scale(1.2)'\n        })),\n        animate('100ms ease-out', style({\n          transform: 'scale(1)'\n        }))\n      ]),\n    ]),\n    trigger('container', [\n      transition(':leave', [\n        style({\n          opacity: 1,\n        }),\n        animate('230ms ease-in', style({\n          opacity: 0,\n        }))\n      ]),\n      transition(':enter', [\n        style({\n          opacity: 0,\n        }),\n        animate('230ms ease-in', style({\n          opacity: 1,\n        }))\n      ]),\n    ])\n  ]\n})\nexport class AddVehicleComponent implements OnInit {\n\n  @Input() dialogData;\n  @Input() user;\n  errorMessage = '';\n  editFlag = false;\n\n  form: FormGroup;\n\n  constructor(private fb: FormBuilder, private vehicleService: VehicleService) { }\n\n  @ViewChild('myModal', {static: false}) modal: ElementRef;\n  @Output('vehicleData') vehicleData: EventEmitter<any> = new EventEmitter();\n\n  open() {\n    this.modal.nativeElement.style.display = 'block';\n  }\n\n  close() {\n    this.modal.nativeElement.style.display = 'none';\n  }\n  ngOnInit(): void {\n    this.form = this.fb.group({\n      name: ['', [Validators.required]],\n      model: ['', [Validators.required]],\n      color: ['', [Validators.required]],\n      chasisNumber: [''],\n      price: ['', [Validators.required]],\n      imageUrl: ['', [Validators.required]]\n    });\n  }\n\n  ngOnChanges() {\n    if (this.dialogData && this.dialogData.edit) {\n      this.editFlag = true;\n      this.setFormValues();\n    }\n  }\n\n  save() {\n    if (this.form.invalid) {\n      this.errorMessage = 'Please Enter all the details!!';\n      return;\n    }\n\n    const vehicleData = {\n      name: this.form.controls.name.value,\n      model: this.form.controls.model.value,\n      color: this.form.controls.color.value,\n      chasisNumber: this.form.controls.chasisNumber.value,\n      price: this.form.controls.price.value,\n      imageUrl: this.form.controls.imageUrl.value,\n      userId: this.user.id\n    }\n\n    this.vehicleService.addVehicle(vehicleData).subscribe((result: any) => {\n      this.vehicleData.emit(result);\n      this.close();\n    })\n  }\n\n  setFormValues() {\n    this.form.patchValue(this.dialogData);\n  }\n\n  update() {\n    if (this.form.invalid) {\n      this.errorMessage = 'Please Enter all the details!!';\n      return;\n    }\n\n    const vehicleData = {\n      name: this.form.controls.name.value,\n      model: this.form.controls.model.value,\n      color: this.form.controls.color.value,\n      chasisNumber: this.form.controls.chasisNumber.value,\n      price: this.form.controls.price.value,\n      imageUrl: this.form.controls.imageUrl.value,\n      userId: this.user.id,\n      id: this.dialogData.id\n    }\n\n    this.vehicleService.updateVehicle(vehicleData).subscribe((result: any) => {\n      this.vehicleData.emit(result);\n      this.close();\n    })\n  }\n\n}\n",
+            "sourceCode": "import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';\nimport { animate, state, style, transition, trigger, animateChild, query } from '@angular/animations';\nimport { FormBuilder, FormGroup, Validators } from '@angular/forms';\nimport { VehicleService } from 'src/app/services/vehicle.service';\n\n@Component({\n  selector: 'app-add-vehicle',\n  templateUrl: './add-vehicle.component.html',\n  styleUrls: ['./add-vehicle.component.scss']\n})\nexport class AddVehicleComponent implements OnInit {\n\n  @Input() dialogData;\n  @Input() user;\n  errorMessage = '';\n  editFlag = false;\n\n  form: FormGroup;\n\n  constructor(private fb: FormBuilder, private vehicleService: VehicleService) { }\n\n  @ViewChild('myModal', {static: false}) modal: ElementRef;\n  @Output('vehicleData') vehicleData: EventEmitter<any> = new EventEmitter();\n\n  open() {\n    this.modal.nativeElement.style.display = 'block';\n  }\n\n  close() {\n    this.modal.nativeElement.style.display = 'none';\n  }\n  ngOnInit(): void {\n    this.form = this.fb.group({\n      name: ['', [Validators.required]],\n      model: ['', [Validators.required]],\n      color: ['', [Validators.required]],\n      chasisNumber: [''],\n      price: ['', [Validators.required]],\n      imageUrl: ['', [Validators.required]]\n    });\n  }\n\n  ngOnChanges() {\n    if (this.dialogData && this.dialogData.edit) {\n      this.editFlag = true;\n      this.setFormValues();\n    }\n  }\n\n  save() {\n    if (this.form.invalid) {\n      this.errorMessage = 'Please Enter all the details!!';\n      return;\n    }\n\n    const vehicleData = {\n      name: this.form.controls.name.value,\n      model: this.form.controls.model.value,\n      color: this.form.controls.color.value,\n      chasisNumber: this.form.controls.chasisNumber.value,\n      price: this.form.controls.price.value,\n      imageUrl: this.form.controls.imageUrl.value,\n      userId: this.user.id\n    }\n\n    this.vehicleService.addVehicle(vehicleData).subscribe((result: any) => {\n      this.vehicleData.emit(result);\n      this.close();\n    })\n  }\n\n  setFormValues() {\n    this.form.patchValue(this.dialogData);\n  }\n\n  update() {\n    if (this.form.invalid) {\n      this.errorMessage = 'Please Enter all the details!!';\n      return;\n    }\n\n    const vehicleData = {\n      name: this.form.controls.name.value,\n      model: this.form.controls.model.value,\n      color: this.form.controls.color.value,\n      chasisNumber: this.form.controls.chasisNumber.value,\n      price: this.form.controls.price.value,\n      imageUrl: this.form.controls.imageUrl.value,\n      userId: this.user.id,\n      id: this.dialogData.id\n    }\n\n    this.vehicleService.updateVehicle(vehicleData).subscribe((result: any) => {\n      this.vehicleData.emit(result);\n      this.close();\n    })\n  }\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "",
+                    "data": "@import '../../../assets/themes/_variables.scss';\r\n@import '../../../assets/themes/_mixins.scss';\r\n\r\n/**** Modal Styles ****/\r\n\r\n.container {\r\n    display: none;\r\n    position: fixed;\r\n    z-index: 1;\r\n    padding-top: 100px;\r\n    left: 0;\r\n    top: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: auto;\r\n    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */\r\n\r\n    .content {\r\n        background-color: var(--modal-background);\r\n        margin: auto;\r\n        border: 1px solid var(--modal-border-color);\r\n        width: 80%;\r\n        border-radius: 5px;\r\n\r\n        .dialog-header {\r\n            padding: $space-24;\r\n            border-bottom: 1px solid var(--border-color);\r\n            span {\r\n                @include custom-fontSize(24px);\r\n            }\r\n        }\r\n        .dialog-content {\r\n            padding: $space-24;\r\n        }\r\n\r\n        .dialog-button-bar {\r\n            border-top: 1px solid var(--border-color);\r\n            padding: $space-16;\r\n            display: flex;\r\n            justify-content: flex-end;\r\n        }\r\n    }\r\n}\r\n\r\n.btn {\r\n    padding: $space-12 $space-16;\r\n    font-family: Calibri;\r\n    @include custom-fontSize(14px);\r\n    &:hover {\r\n        box-shadow: 0px 0 10px rgba(0, 0, 0, 0.5);\r\n    }\r\n    &:focus {\r\n        outline: 0;\r\n    }\r\n}\r\n\r\n.btn-transparent {\r\n    border: none;\r\n    background-color: var(--transparent-btn-color);\r\n    color: var(--transparent-btn-text-color);\r\n    cursor: pointer;\r\n}\r\n\r\n.btn-primary {\r\n    background-color: var(--primary-btn-color);\r\n    color: var(--primary-btn-text-color);\r\n    border: none;\r\n    font-weight: bold;\r\n    cursor: pointer;\r\n}\r\n\r\n.btn-link {\r\n    padding: 0;\r\n    color: var(--primary-btn-color);\r\n    cursor: pointer;\r\n    &:hover {\r\n        box-shadow: none;\r\n    }\r\n}\r\n\r\n.form-grid {\r\n    display: grid;\r\n    grid-template-columns: 50% 50%;\r\n\r\n    .form-field {\r\n        padding: 0 $space-12 $space-12 0;\r\n    }\r\n}\r\n\r\ninput {\r\n    width: 100%;\r\n    border: 1px solid var(--border-color);\r\n    padding: $space-12;\r\n    @include custom-fontSize($space-14, \"\", $space-16);\r\n    box-sizing: border-box;\r\n    &:focus {\r\n        outline: 0;\r\n    }\r\n}\r\n",
                     "styleUrl": "./add-vehicle.component.scss"
                 }
             ],
@@ -549,7 +549,7 @@
                         "type": "VehicleService"
                     }
                 ],
-                "line": 74,
+                "line": 18,
                 "jsdoctags": [
                     {
                         "name": "fb",
@@ -570,7 +570,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div #myModal class=\"container\" [@container]>\n    <div class=\"content\" [@content]>\n        <div class=\"dialog-header\">\n            <span>Add Vehicle</span>\n        </div>\n        <div class=\"dialog-content\">\n            <form (submit)=\"save()\" [formGroup]=\"form\" #vehicleForm=\"ngForm\">\n                <div class=\"form-grid\">\n                    <div class=\"form-field\">\n                        <label for=\"\">Name</label>\n                        <input type=\"text\" formControlName=\"name\">\n                    </div>\n                    <div>\n                        <label for=\"\">Model</label>\n                        <input type=\"text\" formControlName=\"model\">\n                    </div>\n                    <div class=\"form-field\">\n                        <label for=\"\">Color</label>\n                        <input type=\"text\" formControlName=\"color\">\n                    </div>\n                    <div>\n                        <label for=\"\">Chasis Number</label>\n                        <input type=\"text\" formControlName=\"chasisNumber\">\n                    </div>\n                    <div class=\"form-field\">\n                        <label for=\"\">Price</label>\n                        <input type=\"text\" formControlName=\"price\">\n                    </div>\n                    <div>\n                        <label for=\"\">Image Url</label>\n                        <input type=\"text\" formControlName=\"imageUrl\">\n                    </div>\n                </div>\n            </form>\n        </div>\n        <div class=\"dialog-button-bar\">\n            <button class=\"btn btn-primary\" type=\"submit\" *ngIf=\"!editFlag\" (click)=\"save()\">Save</button>\n            <button class=\"btn btn-primary\" type=\"submit\" *ngIf=\"editFlag\" (click)=\"update()\">Update</button>\n            <button class=\"btn btn-transparent ml-24\" (click)=\"close()\">Close</button>\n        </div>\n    </div>\n</div>"
+            "templateData": "<div #myModal class=\"container\">\n    <div class=\"content\">\n        <div class=\"dialog-header\">\n            <span>Add Vehicle</span>\n        </div>\n        <div class=\"dialog-content\">\n            <form (submit)=\"save()\" [formGroup]=\"form\">\n                <div class=\"form-grid\">\n                    <div class=\"form-field\">\n                        <label for=\"\">Name</label>\n                        <input type=\"text\" formControlName=\"name\">\n                    </div>\n                    <div>\n                        <label for=\"\">Model</label>\n                        <input type=\"text\" formControlName=\"model\">\n                    </div>\n                    <div class=\"form-field\">\n                        <label for=\"\">Color</label>\n                        <input type=\"text\" formControlName=\"color\">\n                    </div>\n                    <div>\n                        <label for=\"\">Chasis Number</label>\n                        <input type=\"text\" formControlName=\"chasisNumber\">\n                    </div>\n                    <div class=\"form-field\">\n                        <label for=\"\">Price</label>\n                        <input type=\"text\" formControlName=\"price\">\n                    </div>\n                    <div>\n                        <label for=\"\">Image Url</label>\n                        <input type=\"text\" formControlName=\"imageUrl\">\n                    </div>\n                </div>\n            </form>\n        </div>\n        <div class=\"dialog-button-bar\">\n            <button class=\"btn btn-primary\" type=\"submit\" *ngIf=\"!editFlag\" (click)=\"save()\">Save</button>\n            <button class=\"btn btn-primary\" type=\"submit\" *ngIf=\"editFlag\" (click)=\"update()\">Update</button>\n            <button class=\"btn btn-transparent ml-24\" (click)=\"close()\">Close</button>\n        </div>\n    </div>\n</div>"
         },
         {
             "name": "AppComponent",
@@ -619,7 +619,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "",
+                    "data": "@import '../assets/themes/variables';\r\n\r\n.main {\r\n    padding: $space-16 $space-24;\r\n    background-color: var(--background-color);\r\n}",
                     "styleUrl": "./app.component.scss"
                 }
             ],
@@ -767,7 +767,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "",
+                    "data": "@import '../../assets/themes/variables';\r\n\r\n.footer {\r\n    position: fixed;\r\n    bottom: 0;\r\n    left: 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    padding: $space-16 $space-24;\r\n    width: 100%;\r\n    background-color: var(--primary-color);\r\n    border-top: 1px solid var(--border-color);\r\n    // box-shadow: 0px 0 10px rgba(0, 0, 0, 0.5);\r\n\r\n    p {\r\n        margin: 0;\r\n    }\r\n}",
                     "styleUrl": "./footer.component.scss"
                 }
             ],
@@ -785,7 +785,7 @@
         },
         {
             "name": "HeaderComponent",
-            "id": "component-HeaderComponent-246e2a69dc126a3bd76c6328dd3b93e2",
+            "id": "component-HeaderComponent-c349aa42f2121da4b5737d60a50fa413",
             "file": "src/stories/header.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -835,11 +835,11 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'storybook-header',\n  template: `<header>\n    <div class=\"wrapper\">\n      <div>\n        <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z\"\n              fill=\"#FFF\"\n            />\n            <path\n              d=\"M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z\"\n              fill=\"#555AB9\"\n            />\n            <path\n              d=\"M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z\"\n              fill=\"#91BAF8\"\n            />\n          </g>\n        </svg>\n        <h1>Acme</h1>\n      </div>\n      <div>\n        <storybook-button\n          *ngIf=\"user\"\n          size=\"small\"\n          (onClick)=\"onLogout.emit($event)\"\n          label=\"Log out\"\n        ></storybook-button>\n        <storybook-button\n          *ngIf=\"!user\"\n          size=\"small\"\n          (onClick)=\"onLogin.emit($event)\"\n          label=\"Log in\"\n        ></storybook-button>\n        <storybook-button\n          *ngIf=\"!user\"\n          primary\n          size=\"small\"\n          (onClick)=\"onCreateAccount.emit($event)\"\n          label=\"Sign up\"\n        ></storybook-button>\n      </div>\n    </div>\n  </header>`,\n  styleUrls: ['./header.css'],\n})\nexport default class HeaderComponent {\n  @Input()\n  user: unknown = null;\n\n  @Output()\n  onLogin = new EventEmitter<Event>();\n\n  @Output()\n  onLogout = new EventEmitter<Event>();\n\n  @Output()\n  onCreateAccount = new EventEmitter<Event>();\n}\n",
+            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'storybook-header',\r\n  template: `<header>\r\n    <div class=\"wrapper\">\r\n      <div>\r\n        <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\">\r\n          <g fill=\"none\" fillRule=\"evenodd\">\r\n            <path\r\n              d=\"M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z\"\r\n              fill=\"#FFF\"\r\n            />\r\n            <path\r\n              d=\"M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z\"\r\n              fill=\"#555AB9\"\r\n            />\r\n            <path\r\n              d=\"M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z\"\r\n              fill=\"#91BAF8\"\r\n            />\r\n          </g>\r\n        </svg>\r\n        <h1>Acme</h1>\r\n      </div>\r\n      <div>\r\n        <storybook-button\r\n          *ngIf=\"user\"\r\n          size=\"small\"\r\n          (onClick)=\"onLogout.emit($event)\"\r\n          label=\"Log out\"\r\n        ></storybook-button>\r\n        <storybook-button\r\n          *ngIf=\"!user\"\r\n          size=\"small\"\r\n          (onClick)=\"onLogin.emit($event)\"\r\n          label=\"Log in\"\r\n        ></storybook-button>\r\n        <storybook-button\r\n          *ngIf=\"!user\"\r\n          primary\r\n          size=\"small\"\r\n          (onClick)=\"onCreateAccount.emit($event)\"\r\n          label=\"Sign up\"\r\n        ></storybook-button>\r\n      </div>\r\n    </div>\r\n  </header>`,\r\n  styleUrls: ['./header.css'],\r\n})\r\nexport default class HeaderComponent {\r\n  @Input()\r\n  user: unknown = null;\r\n\r\n  @Output()\r\n  onLogin = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onLogout = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onCreateAccount = new EventEmitter<Event>();\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".wrapper {\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n  padding: 15px 20px;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n\nsvg {\n  display: inline-block;\n  vertical-align: top;\n}\n\nh1 {\n  font-weight: 900;\n  font-size: 20px;\n  line-height: 1;\n  margin: 6px 0 6px 10px;\n  display: inline-block;\n  vertical-align: top;\n}\n\nbutton + button {\n  margin-left: 10px;\n}\n",
+                    "data": ".header {\n  padding: 16px 24px;\n  border-bottom: 1px solid #c8c8c8;\n  display: flex;\n  flex-direction: row;\n}\n\n.header .logo {\n  display: flex;\n  flex-direction: column;\n  flex: 33.33%;\n  justify-content: center;\n  height: 50px;\n  width: 200px;\n}\n\n.header .logo img {\n  width: inherit;\n}\n\n.header .section-right {\n  display: flex;\n  flex: 66.33%;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n}\n\n.header .section-right .switch-section span {\n  margin-left: 8px;\n  vertical-align: super;\n}",
                     "styleUrl": "./header.css"
                 }
             ],
@@ -1004,7 +1004,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".logo {\r\n    img {\r\n        width: inherit;\r\n    }\r\n}",
+                    "data": "@import '../../assets/themes/_variables.scss';\r\n@import '../../assets/themes/mixins';\r\n\r\n.header {\r\n    padding: $space-16 $space-24;\r\n    // box-shadow: 0px 0 10px rgba(0, 0, 0, 0.5);\r\n    border-bottom: 1px solid var(--border-color);\r\n    display: flex;\r\n    flex-direction: row;\r\n    background-color: var(--primary-color);\r\n\r\n    .logo {\r\n        display: flex;\r\n        flex-direction: column;\r\n        flex: 33.33%;\r\n        justify-content: center;\r\n        height: 50px;\r\n        width: 200px;\r\n        img {\r\n            width: inherit;\r\n        }\r\n    }\r\n\r\n    .section-right {\r\n        display: flex;\r\n        flex: 66.33%;\r\n        flex-direction: row;\r\n        justify-content: flex-end;\r\n        align-items: center;\r\n\r\n        .switch-section {\r\n            span {\r\n                margin-left: $space-8;\r\n                vertical-align: super;\r\n                color: var(--text-color);\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n.btn {\r\n    padding: $space-12 $space-16;\r\n    font-family: Calibri;\r\n    @include custom-fontSize(14px);\r\n    &:hover {\r\n        box-shadow: 0px 0 10px rgba(0, 0, 0, 0.5);\r\n    }\r\n    &:focus {\r\n        outline: 0;\r\n    }\r\n}\r\n\r\n.btn-transparent {\r\n    border: none;\r\n    background-color: var(--transparent-btn-color);\r\n    color: var(--transparent-btn-text-color);\r\n    cursor: pointer;\r\n}\r\n\r\n.btn-primary {\r\n    background-color: var(--primary-btn-color);\r\n    color: var(--primary-btn-text-color);\r\n    border: none;\r\n    font-weight: bold;\r\n    cursor: pointer;\r\n}\r\n\r\n.btn-link {\r\n    padding: 0;\r\n    color: var(--primary-btn-color);\r\n    cursor: pointer;\r\n    &:hover {\r\n        box-shadow: none;\r\n    }\r\n}\r\n",
                     "styleUrl": "./header.component.scss"
                 }
             ],
@@ -1238,7 +1238,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "",
+                    "data": "@import \"../../../assets/themes/_variables.scss\";\r\n@import \"../../../assets/themes/_mixins.scss\";\r\n\r\n// height: 100%;\r\n\r\n.grid-container {\r\n    margin: 0 20%;\r\n    display: grid;\r\n    grid-template-columns: 50% 50%;\r\n\r\n    .grid-items {\r\n        margin: 0 $space-16 $space-32;\r\n        border: 1px solid var(--border-color);\r\n        box-shadow: 0px 0 10px rgba(0, 0, 0, 0.5);\r\n\r\n        .item-grid-container {\r\n            .content {\r\n                display: grid;\r\n                grid-template-rows: auto;\r\n                background-color: var(--content-background-color);\r\n                .item-grid-content {\r\n                    width: 100%;\r\n                    height: 200px;\r\n                    margin-bottom: $space-12;\r\n                    background-repeat: no-repeat;\r\n                    background-position: center;\r\n                    background-size: cover;\r\n                }\r\n                .item-price {\r\n                    @include custom-fontSize($space-24, var(--price-text-color));\r\n                    font-weight: bold;\r\n                    float: right;\r\n                }\r\n                .item-color {\r\n                    font-weight: bold;\r\n                }\r\n                .content-item {\r\n                    padding: $space-16;\r\n                    .content-header {\r\n                        @include custom-fontSize($space-24);\r\n                    }\r\n                    .content-sub-header {\r\n                        @include custom-fontSize($space-16, var(--light-text-color));\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n.button-bar {\r\n    margin: 0 20%;\r\n    padding: $space-16;\r\n    display: flex;\r\n    align-items: flex-end;\r\n    justify-content: flex-end;\r\n}\r\n\r\n.btn {\r\n    padding: $space-12 $space-16;\r\n    font-family: Calibri;\r\n    @include custom-fontSize(14px);\r\n    &:hover {\r\n        box-shadow: 0px 0 10px rgba(0, 0, 0, 0.5);\r\n    }\r\n    &:focus {\r\n        outline: 0;\r\n    }\r\n}\r\n\r\n.btn-transparent {\r\n    border: none;\r\n    background-color: var(--transparent-btn-color);\r\n    color: var(--transparent-btn-text-color);\r\n    cursor: pointer;\r\n}\r\n\r\n.btn-primary {\r\n    background-color: var(--primary-btn-color);\r\n    color: var(--primary-btn-text-color);\r\n    border: none;\r\n    font-weight: bold;\r\n    cursor: pointer;\r\n}\r\n\r\n.btn-link {\r\n    padding: 0;\r\n    color: var(--primary-btn-color);\r\n    cursor: pointer;\r\n    &:hover {\r\n        box-shadow: none;\r\n    }\r\n}\r\n",
                     "styleUrl": "./list.component.scss"
                 }
             ],
@@ -1406,7 +1406,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "",
+                    "data": "@import '../../assets/themes/_variables.scss';\r\n@import '../../assets/themes/_mixins.scss';\r\n\r\n/**** Modal Styles ****/\r\n\r\n.container {\r\n    display: none;\r\n    position: fixed;\r\n    z-index: 1;\r\n    padding-top: 100px;\r\n    left: 0;\r\n    top: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: auto;\r\n    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */\r\n\r\n    .content {\r\n        background-color: var(--modal-background);\r\n        margin: auto;\r\n        border: 1px solid var(--modal-border-color);\r\n        width: 80%;\r\n        border-radius: 5px;\r\n\r\n        .dialog-header {\r\n            padding: $space-24;\r\n            border-bottom: 1px solid var(--border-color);\r\n            span {\r\n                @include custom-fontSize(24px);\r\n            }\r\n        }\r\n        .dialog-content {\r\n            padding: $space-24;\r\n        }\r\n\r\n        .dialog-button-bar {\r\n            border-top: 1px solid var(--border-color);\r\n            padding: $space-16;\r\n            display: flex;\r\n            justify-content: flex-end;\r\n        }\r\n    }\r\n}\r\n\r\n.btn {\r\n    padding: $space-12 $space-16;\r\n    font-family: Calibri;\r\n    @include custom-fontSize(14px);\r\n    &:hover {\r\n        box-shadow: 0px 0 10px rgba(0, 0, 0, 0.5);\r\n    }\r\n    &:focus {\r\n        outline: 0;\r\n    }\r\n}\r\n\r\n.btn-transparent {\r\n    border: none;\r\n    background-color: var(--transparent-btn-color);\r\n    color: var(--transparent-btn-text-color);\r\n    cursor: pointer;\r\n}\r\n\r\n.btn-primary {\r\n    background-color: var(--primary-btn-color);\r\n    color: var(--primary-btn-text-color);\r\n    border: none;\r\n    font-weight: bold;\r\n    cursor: pointer;\r\n}\r\n\r\n.btn-link {\r\n    padding: 0;\r\n    color: var(--primary-btn-color);\r\n    cursor: pointer;\r\n    &:hover {\r\n        box-shadow: none;\r\n    }\r\n}\r\n\r\n.form-grid {\r\n    display: grid;\r\n    grid-template-columns: 50% 50%;\r\n\r\n    .form-field {\r\n        padding: 0 $space-12 $space-12 0;\r\n    }\r\n}\r\n\r\ninput {\r\n    width: 100%;\r\n    border: 1px solid var(--border-color);\r\n    padding: $space-12;\r\n    @include custom-fontSize($space-14, \"\", $space-16);\r\n    box-sizing: border-box;\r\n    &:focus {\r\n        outline: 0;\r\n    }\r\n}\r\n\r\n",
                     "styleUrl": "./login.component.scss"
                 }
             ],
@@ -1581,7 +1581,7 @@
         },
         {
             "name": "RegistrationComponent",
-            "id": "component-RegistrationComponent-cedd4b5f2e3bddd4fae23b73a69f2e6d",
+            "id": "component-RegistrationComponent-4e3464d6291a26b50bdd1ed60284f31c",
             "file": "src/app/registration/registration.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1600,7 +1600,7 @@
             "inputsClass": [
                 {
                     "name": "width",
-                    "line": 71,
+                    "line": 15,
                     "type": "number"
                 }
             ],
@@ -1612,27 +1612,27 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 72
-                },
-                {
-                    "name": "loginForm",
-                    "type": "FormGroup",
-                    "optional": false,
-                    "description": "",
-                    "line": 70
+                    "line": 16
                 },
                 {
                     "name": "modal",
                     "type": "ElementRef",
                     "optional": false,
                     "description": "",
-                    "line": 69,
+                    "line": 13,
                     "decorators": [
                         {
                             "name": "ViewChild",
                             "stringifiedArguments": "'myModal', {static: false}"
                         }
                     ]
+                },
+                {
+                    "name": "registrationForm",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
                 }
             ],
             "methodsClass": [
@@ -1642,7 +1642,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 86
+                    "line": 30
                 },
                 {
                     "name": "ngOnInit",
@@ -1650,7 +1650,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 75
+                    "line": 19
                 },
                 {
                     "name": "open",
@@ -1658,7 +1658,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 82
+                    "line": 26
                 },
                 {
                     "name": "register",
@@ -1666,7 +1666,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 90
+                    "line": 34
                 }
             ],
             "hostBindings": [],
@@ -1674,11 +1674,11 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';\nimport { FormGroup, Validators, FormBuilder } from '@angular/forms';\nimport { trigger, transition, query, animateChild, style, animate } from '@angular/animations';\nimport { AuthService } from '../services/auth.service';\nimport { UserDetailsService } from '../services/user-details.service';\n\n@Component({\n  selector: 'app-registration',\n  templateUrl: './registration.component.html',\n  styleUrls: ['./registration.component.scss'],\n  animations: [\n    trigger('host', [\n      transition(':leave', [\n        query('@container,@content', [\n          animateChild()\n        ])\n      ]),\n      transition(':enter', [\n        query('@container,@content', [\n          animateChild()\n        ])\n      ]),\n    ]),\n    trigger('content', [\n      transition(':leave', [\n        style({\n          transform: 'scale(1)'\n        }),\n        animate('100ms ease-out', style({\n          transform: 'scale(1.2)'\n        })),\n        animate('300ms ease-in', style({\n          transform: 'scale(0)'\n        }))\n      ]),\n      transition(':enter', [\n        style({\n          transform: 'scale(0.5)'\n        }),\n        animate('200ms ease-out', style({\n          transform: 'scale(1.2)'\n        })),\n        animate('100ms ease-out', style({\n          transform: 'scale(1)'\n        }))\n      ]),\n    ]),\n    trigger('container', [\n      transition(':leave', [\n        style({\n          opacity: 1,\n        }),\n        animate('230ms ease-in', style({\n          opacity: 0,\n        }))\n      ]),\n      transition(':enter', [\n        style({\n          opacity: 0,\n        }),\n        animate('230ms ease-in', style({\n          opacity: 1,\n        }))\n      ]),\n    ])\n  ]\n})\nexport class RegistrationComponent implements OnInit {\n  @ViewChild('myModal', { static: false }) modal: ElementRef;\n  loginForm: FormGroup;\n  @Input() width: number;\n  errorMessage = '';\n  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UserDetailsService) { }\n\n  ngOnInit(): void {\n    this.loginForm = this.fb.group({\n      email: ['', Validators.required],\n      password: ['', Validators.required]\n    })\n  }\n\n  open() {\n    this.modal.nativeElement.style.display = 'block';\n  }\n\n  close() {\n    this.modal.nativeElement.style.display = 'none';\n  }\n\n  register() {\n    if (!this.loginForm.valid) {\n      this.errorMessage = 'Please enter all the details before saving!!';\n      return;\n    }\n    const userData = {\n      email: this.loginForm.controls.email.value,\n      password: this.loginForm.controls.password.value\n    }\n    this.authService.registerUser(userData).subscribe((result: any) => {\n      this.close();\n    }, (error: any) => {\n      this.errorMessage = error.error.message;\n    })\n  }\n\n}\n",
+            "sourceCode": "import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';\nimport { FormGroup, Validators, FormBuilder } from '@angular/forms';\nimport { trigger, transition, query, animateChild, style, animate } from '@angular/animations';\nimport { AuthService } from '../services/auth.service';\nimport { UserDetailsService } from '../services/user-details.service';\n\n@Component({\n  selector: 'app-registration',\n  templateUrl: './registration.component.html',\n  styleUrls: ['./registration.component.scss']\n})\nexport class RegistrationComponent implements OnInit {\n  @ViewChild('myModal', { static: false }) modal: ElementRef;\n  registrationForm: FormGroup;\n  @Input() width: number;\n  errorMessage = '';\n  constructor(private fb: FormBuilder, private authService: AuthService) { }\n\n  ngOnInit(): void {\n    this.registrationForm = this.fb.group({\n      email: ['', Validators.required],\n      password: ['', Validators.required]\n    })\n  }\n\n  open() {\n    this.modal.nativeElement.style.display = 'block';\n  }\n\n  close() {\n    this.modal.nativeElement.style.display = 'none';\n  }\n\n  register() {\n    if (!this.registrationForm.valid) {\n      this.errorMessage = 'Please enter all the details before saving!!';\n      return;\n    }\n    const userData = {\n      email: this.registrationForm.controls.email.value,\n      password: this.registrationForm.controls.password.value\n    }\n    this.authService.registerUser(userData).subscribe((result: any) => {\n      this.close();\n    }, (error: any) => {\n      this.errorMessage = error.error.message;\n    })\n  }\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "",
+                    "data": "@import '../../assets/themes/_variables.scss';\r\n@import '../../assets/themes/_mixins.scss';\r\n\r\n/**** Modal Styles ****/\r\n\r\n.container {\r\n    display: none;\r\n    position: fixed;\r\n    z-index: 1;\r\n    padding-top: 100px;\r\n    left: 0;\r\n    top: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: auto;\r\n    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */\r\n\r\n    .content {\r\n        background-color: var(--modal-background);\r\n        margin: auto;\r\n        border: 1px solid var(--modal-border-color);\r\n        width: 80%;\r\n        border-radius: 5px;\r\n\r\n        .dialog-header {\r\n            padding: $space-24;\r\n            border-bottom: 1px solid var(--border-color);\r\n            span {\r\n                @include custom-fontSize(24px);\r\n            }\r\n        }\r\n        .dialog-content {\r\n            padding: $space-24;\r\n        }\r\n\r\n        .dialog-button-bar {\r\n            border-top: 1px solid var(--border-color);\r\n            padding: $space-16;\r\n            display: flex;\r\n            justify-content: flex-end;\r\n        }\r\n    }\r\n}\r\n\r\n.btn {\r\n    padding: $space-12 $space-16;\r\n    font-family: Calibri;\r\n    @include custom-fontSize(14px);\r\n    &:hover {\r\n        box-shadow: 0px 0 10px rgba(0, 0, 0, 0.5);\r\n    }\r\n    &:focus {\r\n        outline: 0;\r\n    }\r\n}\r\n\r\n.btn-transparent {\r\n    border: none;\r\n    background-color: var(--transparent-btn-color);\r\n    color: var(--transparent-btn-text-color);\r\n    cursor: pointer;\r\n}\r\n\r\n.btn-primary {\r\n    background-color: var(--primary-btn-color);\r\n    color: var(--primary-btn-text-color);\r\n    border: none;\r\n    font-weight: bold;\r\n    cursor: pointer;\r\n}\r\n\r\n.btn-link {\r\n    padding: 0;\r\n    color: var(--primary-btn-color);\r\n    cursor: pointer;\r\n    &:hover {\r\n        box-shadow: none;\r\n    }\r\n}\r\n\r\n.form-grid {\r\n    display: grid;\r\n    grid-template-columns: 50% 50%;\r\n\r\n    .form-field {\r\n        padding: 0 $space-12 $space-12 0;\r\n    }\r\n}\r\n\r\ninput {\r\n    width: 100%;\r\n    border: 1px solid var(--border-color);\r\n    padding: $space-12;\r\n    @include custom-fontSize($space-14, \"\", $space-16);\r\n    box-sizing: border-box;\r\n    &:focus {\r\n        outline: 0;\r\n    }\r\n}\r\n",
                     "styleUrl": "./registration.component.scss"
                 }
             ],
@@ -1694,13 +1694,9 @@
                     {
                         "name": "authService",
                         "type": "AuthService"
-                    },
-                    {
-                        "name": "userService",
-                        "type": "UserDetailsService"
                     }
                 ],
-                "line": 72,
+                "line": 16,
                 "jsdoctags": [
                     {
                         "name": "fb",
@@ -1715,85 +1711,13 @@
                         "tagName": {
                             "text": "param"
                         }
-                    },
-                    {
-                        "name": "userService",
-                        "type": "UserDetailsService",
-                        "tagName": {
-                            "text": "param"
-                        }
                     }
                 ]
             },
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div #myModal class=\"container\" [@container]>\n    <div class=\"content\" [@content] [style.width]=\"width\">\n        <div class=\"dialog-header\">\n            <span>Register User</span>\n        </div>\n        <div class=\"dialog-content\">\n            <div class=\"pb-24\" *ngIf=\"errorMessage\">\n                <span class=\"error\">{{ errorMessage }}</span>\n            </div>\n            <form (submit)=\"register()\" [formGroup]=\"loginForm\">\n                <div class=\"pb-24\">\n                    <label for=\"\">Email</label>\n                    <input type=\"text\" formControlName=\"email\">\n                </div>\n                <div class=\"pb-24\">\n                    <label for=\"\">Password</label>\n                    <input type=\"password\" formControlName=\"password\">\n                </div>\n            </form>\n        </div>\n        <div class=\"dialog-button-bar\">\n            <button class=\"btn btn-primary\" type=\"submit\" (click)=\"register()\">Register User</button>\n            <button class=\"btn btn-transparent ml-24\" (click)=\"close()\">Close</button>\n        </div>\n    </div>\n</div>"
-        },
-        {
-            "name": "ToggleSwitchComponent",
-            "id": "component-ToggleSwitchComponent-910708152743479122735d756dff2d3e",
-            "file": "src/app/toggle-switch/toggle-switch.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-toggle-switch",
-            "styleUrls": [
-                "./toggle-switch.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./toggle-switch.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [
-                {
-                    "name": "selected",
-                    "defaultValue": "false",
-                    "type": "boolean",
-                    "optional": false,
-                    "description": "",
-                    "line": 10
-                }
-            ],
-            "methodsClass": [
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 14
-                }
-            ],
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "",
-            "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-toggle-switch',\n  templateUrl: './toggle-switch.component.html',\n  styleUrls: ['./toggle-switch.component.scss']\n})\nexport class ToggleSwitchComponent implements OnInit {\n\n  selected: boolean = false;\n  \n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "",
-                    "styleUrl": "./toggle-switch.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "args": [],
-                "line": 10
-            },
-            "implements": [
-                "OnInit"
-            ],
-            "templateData": "<label class=\"toggle-switch\">\n  <input type=\"checkbox\" [(ngModel)]=\"selected\">\n  <div class=\"slider\"></div>\n</label>"
+            "templateData": "<div #myModal class=\"container\">\n    <div class=\"content\" [style.width]=\"width\">\n        <div class=\"dialog-header\">\n            <span>Register User</span>\n        </div>\n        <div class=\"dialog-content\">\n            <div class=\"pb-24\" *ngIf=\"errorMessage\">\n                <span class=\"error\">{{ errorMessage }}</span>\n            </div>\n            <form (submit)=\"register()\" [formGroup]=\"registrationForm\">\n                <div class=\"pb-24\">\n                    <label for=\"\">Email</label>\n                    <input type=\"text\" formControlName=\"email\">\n                </div>\n                <div class=\"pb-24\">\n                    <label for=\"\">Password</label>\n                    <input type=\"password\" formControlName=\"password\">\n                </div>\n            </form>\n        </div>\n        <div class=\"dialog-button-bar\">\n            <button class=\"btn btn-primary\" type=\"submit\" (click)=\"register()\">Register User</button>\n            <button class=\"btn btn-transparent ml-24\" (click)=\"close()\">Close</button>\n        </div>\n    </div>\n</div>"
         }
     ],
     "modules": [
@@ -1822,9 +1746,6 @@
                         },
                         {
                             "name": "RegistrationComponent"
-                        },
-                        {
-                            "name": "ToggleSwitchComponent"
                         }
                     ]
                 },
@@ -2022,14 +1943,6 @@
                 "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
             },
             {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/header/header.stories.ts",
-                "type": "",
-                "defaultValue": "() => ({\r\n    component: HeaderComponent,\r\n    template: `\r\n  <div class=\"header\">\r\n  <div class=\"logo\">\r\n    <img src=\"../../assets/images/logo.png\" alt=\"\">\r\n  </div>\r\n\r\n  <div class=\"section-right\">\r\n    <div class=\"switch-section\">\r\n      <!-- <app-toggle-switch></app-toggle-switch> -->\r\n      <toggle-switch [selectedTheme]=\"theme | async\"></toggle-switch>\r\n      <span>Change Theme</span>\r\n    </div>\r\n    <div>\r\n      <button *ngIf=\"!loggedIn\" class=\"btn btn-transparent ml-8\" (click)=\"openModal()\">Login</button>\r\n      <button *ngIf=\"loggedIn\" class=\"btn btn-transparent ml-8\" (click)=\"logout()\">Logout</button>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<app-login #login [width]=\"'300px'\" (isLogin)=\"userLoggedIn($event)\"></app-login>\r\n  `\r\n    //   props: {\r\n    //     selectedTheme: taskData,\r\n    //   },\r\n})"
-            },
-            {
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -2062,12 +1975,28 @@
                 "defaultValue": "Template.bind({})"
             },
             {
+                "name": "List",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/List.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
                 "name": "ListModel",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/page/models/list.model.ts",
                 "type": "[]",
                 "defaultValue": "[\r\n  {\r\n    name: 'Mercedes',\r\n    model: 'Benz',\r\n    color: 'Black',\r\n    chasisNumber: '123456',\r\n    price: '30L',\r\n    imageUrl: './assets/images/Merc.jpg'\r\n  },\r\n  {\r\n    name: 'Audi',\r\n    model: 'A8',\r\n    color: 'Red',\r\n    chasisNumber: '323452',\r\n    price: '25L',\r\n    imageUrl: './assets/images/Audi.jpg'\r\n  },\r\n  {\r\n    name: 'Swift',\r\n    model: 'LXI1197',\r\n    color: 'Blue',\r\n    chasisNumber: '987563',\r\n    price: '8.5L',\r\n    imageUrl: './assets/images/Swift.jpg'\r\n  },\r\n  {\r\n    name: 'BMW',\r\n    model: 'X5',\r\n    color: 'Silver',\r\n    chasisNumber: '394839',\r\n    price: '35L',\r\n    imageUrl: './assets/images/BMW.jpg'\r\n  }\r\n]"
+            },
+            {
+                "name": "LoggedIn",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/footer.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
             },
             {
                 "name": "LoggedIn",
@@ -2133,14 +2062,6 @@
                 "defaultValue": "Template.bind({})"
             },
             {
-                "name": "taskData",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/header/header.stories.ts",
-                "type": "object",
-                "defaultValue": "{\r\n    id: '1',\r\n\r\n    state: 'Task_INBOX',\r\n    updated_at: new Date(2019, 0, 1, 9, 0),\r\n}"
-            },
-            {
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -2152,9 +2073,25 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/stories/footer.stories.ts",
+                "type": "Story<FooterComponent>",
+                "defaultValue": "(args: FooterComponent) => ({\r\n    component: FooterComponent,\r\n    props: args,\r\n  })"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/stories/Header.stories.ts",
-                "type": "Story<Header>",
-                "defaultValue": "(args: Header) => ({\n  component: Header,\n  props: args,\n})"
+                "type": "Story<HeaderComponent>",
+                "defaultValue": "(args: HeaderComponent) => ({\n  component: HeaderComponent,\n  props: args\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/List.stories.ts",
+                "type": "Story<ListComponent>",
+                "defaultValue": "(args: ListComponent) => ({\r\n  component: ListComponent,\r\n  props: args,\r\n})"
             },
             {
                 "name": "Template",
@@ -2248,24 +2185,6 @@
                     "type": "literal type"
                 }
             ],
-            "src/app/header/header.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/header/header.stories.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\r\n    component: HeaderComponent,\r\n    template: `\r\n  <div class=\"header\">\r\n  <div class=\"logo\">\r\n    <img src=\"../../assets/images/logo.png\" alt=\"\">\r\n  </div>\r\n\r\n  <div class=\"section-right\">\r\n    <div class=\"switch-section\">\r\n      <!-- <app-toggle-switch></app-toggle-switch> -->\r\n      <toggle-switch [selectedTheme]=\"theme | async\"></toggle-switch>\r\n      <span>Change Theme</span>\r\n    </div>\r\n    <div>\r\n      <button *ngIf=\"!loggedIn\" class=\"btn btn-transparent ml-8\" (click)=\"openModal()\">Login</button>\r\n      <button *ngIf=\"loggedIn\" class=\"btn btn-transparent ml-8\" (click)=\"logout()\">Logout</button>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<app-login #login [width]=\"'300px'\" (isLogin)=\"userLoggedIn($event)\"></app-login>\r\n  `\r\n    //   props: {\r\n    //     selectedTheme: taskData,\r\n    //   },\r\n})"
-                },
-                {
-                    "name": "taskData",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/header/header.stories.ts",
-                    "type": "object",
-                    "defaultValue": "{\r\n    id: '1',\r\n\r\n    state: 'Task_INBOX',\r\n    updated_at: new Date(2019, 0, 1, 9, 0),\r\n}"
-                }
-            ],
             "src/environments/environment.prod.ts": [
                 {
                     "name": "environment",
@@ -2328,6 +2247,24 @@
                     "defaultValue": "(args: Button) => ({\n  component: Button,\n  props: args,\n})"
                 }
             ],
+            "src/stories/List.stories.ts": [
+                {
+                    "name": "List",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/List.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/List.stories.ts",
+                    "type": "Story<ListComponent>",
+                    "defaultValue": "(args: ListComponent) => ({\r\n  component: ListComponent,\r\n  props: args,\r\n})"
+                }
+            ],
             "src/app/page/models/list.model.ts": [
                 {
                     "name": "ListModel",
@@ -2336,6 +2273,24 @@
                     "file": "src/app/page/models/list.model.ts",
                     "type": "[]",
                     "defaultValue": "[\r\n  {\r\n    name: 'Mercedes',\r\n    model: 'Benz',\r\n    color: 'Black',\r\n    chasisNumber: '123456',\r\n    price: '30L',\r\n    imageUrl: './assets/images/Merc.jpg'\r\n  },\r\n  {\r\n    name: 'Audi',\r\n    model: 'A8',\r\n    color: 'Red',\r\n    chasisNumber: '323452',\r\n    price: '25L',\r\n    imageUrl: './assets/images/Audi.jpg'\r\n  },\r\n  {\r\n    name: 'Swift',\r\n    model: 'LXI1197',\r\n    color: 'Blue',\r\n    chasisNumber: '987563',\r\n    price: '8.5L',\r\n    imageUrl: './assets/images/Swift.jpg'\r\n  },\r\n  {\r\n    name: 'BMW',\r\n    model: 'X5',\r\n    color: 'Silver',\r\n    chasisNumber: '394839',\r\n    price: '35L',\r\n    imageUrl: './assets/images/BMW.jpg'\r\n  }\r\n]"
+                }
+            ],
+            "src/stories/footer.stories.ts": [
+                {
+                    "name": "LoggedIn",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/footer.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/footer.stories.ts",
+                    "type": "Story<FooterComponent>",
+                    "defaultValue": "(args: FooterComponent) => ({\r\n    component: FooterComponent,\r\n    props: args,\r\n  })"
                 }
             ],
             "src/stories/Header.stories.ts": [
@@ -2360,8 +2315,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/stories/Header.stories.ts",
-                    "type": "Story<Header>",
-                    "defaultValue": "(args: Header) => ({\n  component: Header,\n  props: args,\n})"
+                    "type": "Story<HeaderComponent>",
+                    "defaultValue": "(args: HeaderComponent) => ({\n  component: HeaderComponent,\n  props: args\n})"
                 }
             ],
             "src/stories/Page.stories.ts": [
@@ -2482,7 +2437,7 @@
         ]
     },
     "coverage": {
-        "count": 2,
+        "count": 1,
         "status": "low",
         "files": [
             {
@@ -2528,26 +2483,6 @@
                 "name": "HeaderComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/14",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/header/header.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Default",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/header/header.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "taskData",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -2690,15 +2625,6 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/toggle-switch/toggle-switch.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "ToggleSwitchComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/4",
-                "status": "low"
-            },
-            {
                 "filePath": "src/environments/environment.prod.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
@@ -2799,6 +2725,26 @@
                 "status": "low"
             },
             {
+                "filePath": "src/stories/List.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "List",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/List.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/stories/Page.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
@@ -2836,6 +2782,26 @@
                 "coveragePercent": 83,
                 "coverageCount": "5/6",
                 "status": "very-good"
+            },
+            {
+                "filePath": "src/stories/footer.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LoggedIn",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/footer.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
             },
             {
                 "filePath": "src/stories/header.component.ts",
