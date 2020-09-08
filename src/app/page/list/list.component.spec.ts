@@ -3,9 +3,23 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ListComponent } from './list.component';
 import { VehicleService } from 'src/app/services/vehicle.service';
 import { UserDetailsService } from 'src/app/services/user-details.service';
-import { AddVehicleComponent } from '../add-vehicle/add-vehicle.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { of } from 'rxjs';
+
+@Component({
+  selector: 'app-add-vehicle',
+  template: ''
+})
+export class AddVehicleComponentStub {
+  save() {
+    return {};
+  }
+
+  update() {
+    return {};
+  }
+}
 
 describe('ListComponent', () => {
   let component: ListComponent;
@@ -14,12 +28,9 @@ describe('ListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ListComponent ],
-      imports: [ReactiveFormsModule],
-      providers: [VehicleService, UserDetailsService]
-    }).overrideModule(BrowserDynamicTestingModule, {
-      set: {
-        entryComponents: [ AddVehicleComponent ],
-      }
+      imports: [],
+      providers: [VehicleService, UserDetailsService],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   }));

@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegistrationComponent } from '../registration/registration.component';
 import { AuthService } from '../services/auth.service';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -14,11 +15,8 @@ describe('LoginComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
       imports: [ReactiveFormsModule],
-      providers: [AuthService]
-    }).overrideModule(BrowserDynamicTestingModule, {
-      set: {
-        entryComponents: [ RegistrationComponent ],
-      }
+      providers: [AuthService],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   }));

@@ -24,13 +24,12 @@ export default {
 
 const Template: Story<RegistrationComponent> = (args: RegistrationComponent) => ({
   component: RegistrationComponent,
-  props: args,
-  styles: [`.container {display: block}`]
+  props: args
 });
 
-export const Login = Template.bind({})
-Login.args = {
-  user: {},
+export const Register = Template.bind({})
+Register.args = {
+  showPopup: true,
 };
 
 export const Cancel = Template.bind({});

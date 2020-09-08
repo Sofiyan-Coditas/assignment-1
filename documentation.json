@@ -392,7 +392,7 @@
     "components": [
         {
             "name": "AddVehicleComponent",
-            "id": "component-AddVehicleComponent-c4d62e801fe2f172f36cceb19ff8edbb",
+            "id": "component-AddVehicleComponent-6ea6f5f4a7dcbd0460c55837717d96b0",
             "file": "src/app/page/add-vehicle/add-vehicle.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -412,6 +412,11 @@
                 {
                     "name": "dialogData",
                     "line": 13
+                },
+                {
+                    "name": "showPopup",
+                    "defaultValue": "false",
+                    "line": 17
                 },
                 {
                     "name": "user",
@@ -479,7 +484,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 43
+                    "line": 47
                 },
                 {
                     "name": "ngOnInit",
@@ -503,7 +508,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 50
+                    "line": 54
                 },
                 {
                     "name": "setFormValues",
@@ -511,7 +516,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 72
+                    "line": 76
                 },
                 {
                     "name": "update",
@@ -519,7 +524,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 76
+                    "line": 80
                 }
             ],
             "hostBindings": [],
@@ -527,7 +532,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';\nimport { animate, state, style, transition, trigger, animateChild, query } from '@angular/animations';\nimport { FormBuilder, FormGroup, Validators } from '@angular/forms';\nimport { VehicleService } from 'src/app/services/vehicle.service';\n\n@Component({\n  selector: 'app-add-vehicle',\n  templateUrl: './add-vehicle.component.html',\n  styleUrls: ['./add-vehicle.component.scss']\n})\nexport class AddVehicleComponent implements OnInit {\n\n  @Input() dialogData;\n  @Input() user;\n  errorMessage = '';\n  editFlag = false;\n\n  form: FormGroup;\n\n  constructor(private fb: FormBuilder, private vehicleService: VehicleService) { }\n\n  @ViewChild('myModal', {static: false}) modal: ElementRef;\n  @Output('vehicleData') vehicleData: EventEmitter<any> = new EventEmitter();\n\n  open() {\n    this.modal.nativeElement.style.display = 'block';\n  }\n\n  close() {\n    this.modal.nativeElement.style.display = 'none';\n  }\n  ngOnInit(): void {\n    this.form = this.fb.group({\n      name: ['', [Validators.required]],\n      model: ['', [Validators.required]],\n      color: ['', [Validators.required]],\n      chasisNumber: [''],\n      price: ['', [Validators.required]],\n      imageUrl: ['', [Validators.required]]\n    });\n  }\n\n  ngOnChanges() {\n    if (this.dialogData && this.dialogData.edit) {\n      this.editFlag = true;\n      this.setFormValues();\n    }\n  }\n\n  save() {\n    if (this.form.invalid) {\n      this.errorMessage = 'Please Enter all the details!!';\n      return;\n    }\n\n    const vehicleData = {\n      name: this.form.controls.name.value,\n      model: this.form.controls.model.value,\n      color: this.form.controls.color.value,\n      chasisNumber: this.form.controls.chasisNumber.value,\n      price: this.form.controls.price.value,\n      imageUrl: this.form.controls.imageUrl.value,\n      userId: this.user.id\n    }\n\n    this.vehicleService.addVehicle(vehicleData).subscribe((result: any) => {\n      this.vehicleData.emit(result);\n      this.close();\n    })\n  }\n\n  setFormValues() {\n    this.form.patchValue(this.dialogData);\n  }\n\n  update() {\n    if (this.form.invalid) {\n      this.errorMessage = 'Please Enter all the details!!';\n      return;\n    }\n\n    const vehicleData = {\n      name: this.form.controls.name.value,\n      model: this.form.controls.model.value,\n      color: this.form.controls.color.value,\n      chasisNumber: this.form.controls.chasisNumber.value,\n      price: this.form.controls.price.value,\n      imageUrl: this.form.controls.imageUrl.value,\n      userId: this.user.id,\n      id: this.dialogData.id\n    }\n\n    this.vehicleService.updateVehicle(vehicleData).subscribe((result: any) => {\n      this.vehicleData.emit(result);\n      this.close();\n    })\n  }\n\n}\n",
+            "sourceCode": "import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';\nimport { animate, state, style, transition, trigger, animateChild, query } from '@angular/animations';\nimport { FormBuilder, FormGroup, Validators } from '@angular/forms';\nimport { VehicleService } from 'src/app/services/vehicle.service';\n\n@Component({\n  selector: 'app-add-vehicle',\n  templateUrl: './add-vehicle.component.html',\n  styleUrls: ['./add-vehicle.component.scss']\n})\nexport class AddVehicleComponent implements OnInit {\n\n  @Input() dialogData;\n  @Input() user;\n  errorMessage = '';\n  editFlag = false;\n  @Input() showPopup = false;\n  form: FormGroup;\n\n  constructor(private fb: FormBuilder, private vehicleService: VehicleService) { }\n\n  @ViewChild('myModal', {static: false}) modal: ElementRef;\n  @Output('vehicleData') vehicleData: EventEmitter<any> = new EventEmitter();\n\n  open() {\n    this.modal.nativeElement.style.display = 'block';\n  }\n\n  close() {\n    this.modal.nativeElement.style.display = 'none';\n  }\n  ngOnInit(): void {\n    this.form = this.fb.group({\n      name: ['', [Validators.required]],\n      model: ['', [Validators.required]],\n      color: ['', [Validators.required]],\n      chasisNumber: [''],\n      price: ['', [Validators.required]],\n      imageUrl: ['', [Validators.required]]\n    });\n    if (this.showPopup) {\n      document.querySelector<HTMLElement>('.container').style.display = 'block';\n      document.querySelector<HTMLElement>('#root').classList.add('light');\n    }\n  }\n\n  ngOnChanges() {\n    if (this.dialogData && this.dialogData.edit) {\n      this.editFlag = true;\n      this.setFormValues();\n    }\n  }\n\n  save() {\n    if (this.form.invalid) {\n      this.errorMessage = 'Please Enter all the details!!';\n      return;\n    }\n\n    const vehicleData = {\n      name: this.form.controls.name.value,\n      model: this.form.controls.model.value,\n      color: this.form.controls.color.value,\n      chasisNumber: this.form.controls.chasisNumber.value,\n      price: this.form.controls.price.value,\n      imageUrl: this.form.controls.imageUrl.value,\n      userId: this.user.id\n    }\n\n    this.vehicleService.addVehicle(vehicleData).subscribe((result: any) => {\n      this.vehicleData.emit(result);\n      this.close();\n    })\n  }\n\n  setFormValues() {\n    this.form.patchValue(this.dialogData);\n  }\n\n  update() {\n    if (this.form.invalid) {\n      this.errorMessage = 'Please Enter all the details!!';\n      return;\n    }\n\n    const vehicleData = {\n      name: this.form.controls.name.value,\n      model: this.form.controls.model.value,\n      color: this.form.controls.color.value,\n      chasisNumber: this.form.controls.chasisNumber.value,\n      price: this.form.controls.price.value,\n      imageUrl: this.form.controls.imageUrl.value,\n      userId: this.user.id,\n      id: this.dialogData.id\n    }\n\n    this.vehicleService.updateVehicle(vehicleData).subscribe((result: any) => {\n      this.vehicleData.emit(result);\n      this.close();\n    })\n  }\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -839,7 +844,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".header {\n  padding: 16px 24px;\n  border-bottom: 1px solid #c8c8c8;\n  display: flex;\n  flex-direction: row;\n}\n\n.header .logo {\n  display: flex;\n  flex-direction: column;\n  flex: 33.33%;\n  justify-content: center;\n  height: 50px;\n  width: 200px;\n}\n\n.header .logo img {\n  width: inherit;\n}\n\n.header .section-right {\n  display: flex;\n  flex: 66.33%;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n}\n\n.header .section-right .switch-section span {\n  margin-left: 8px;\n  vertical-align: super;\n}",
+                    "data": "",
                     "styleUrl": "./header.css"
                 }
             ],
@@ -1050,7 +1055,7 @@
         },
         {
             "name": "ListComponent",
-            "id": "component-ListComponent-fbb92e49dfb2926665312fcd7ee27d1b",
+            "id": "component-ListComponent-882d881f5c1f429f545359d051569e2f",
             "file": "src/app/page/list/list.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1066,7 +1071,13 @@
                 "./list.component.html"
             ],
             "viewProviders": [],
-            "inputsClass": [],
+            "inputsClass": [
+                {
+                    "name": "storiesLoggedIn",
+                    "defaultValue": "false",
+                    "line": 20
+                }
+            ],
             "outputsClass": [],
             "propertiesClass": [
                 {
@@ -1075,7 +1086,7 @@
                     "type": "any",
                     "optional": false,
                     "description": "",
-                    "line": 17
+                    "line": 16
                 },
                 {
                     "name": "listData",
@@ -1083,7 +1094,7 @@
                     "type": "[]",
                     "optional": false,
                     "description": "",
-                    "line": 15
+                    "line": 14
                 },
                 {
                     "name": "logout",
@@ -1091,14 +1102,14 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 19
+                    "line": 18
                 },
                 {
                     "name": "modal",
                     "type": "AddVehicleComponent",
                     "optional": false,
                     "description": "",
-                    "line": 23,
+                    "line": 24,
                     "decorators": [
                         {
                             "name": "ViewChild",
@@ -1112,21 +1123,21 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 16
+                    "line": 15
                 },
                 {
                     "name": "user",
                     "type": "any",
                     "optional": false,
                     "description": "",
-                    "line": 18
+                    "line": 17
                 },
                 {
                     "name": "userData",
                     "type": "Subscription",
                     "optional": false,
                     "description": "",
-                    "line": 21
+                    "line": 22
                 }
             ],
             "methodsClass": [
@@ -1141,7 +1152,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 75,
+                    "line": 87,
                     "jsdoctags": [
                         {
                             "name": "data",
@@ -1158,7 +1169,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 55
+                    "line": 65
                 },
                 {
                     "name": "getVehicleDataForUser",
@@ -1166,7 +1177,15 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 49
+                    "line": 57
+                },
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 95
                 },
                 {
                     "name": "ngOnInit",
@@ -1174,7 +1193,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 27
+                    "line": 28
                 },
                 {
                     "name": "openModal",
@@ -1182,7 +1201,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 61
+                    "line": 73
                 },
                 {
                     "name": "updateDetails",
@@ -1195,7 +1214,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 65,
+                    "line": 77,
                     "jsdoctags": [
                         {
                             "name": "vehicleData",
@@ -1217,7 +1236,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 71,
+                    "line": 83,
                     "jsdoctags": [
                         {
                             "name": "event",
@@ -1234,7 +1253,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, ViewChild } from '@angular/core';\nimport { ListModel } from '../models/list.model';\nimport { AddVehicleComponent } from '../add-vehicle/add-vehicle.component';\nimport { VehicleService } from '../../services/vehicle.service';\nimport { Subscription } from 'rxjs';\nimport { UserDetailsService } from 'src/app/services/user-details.service';\n\n@Component({\n  selector: 'app-list',\n  templateUrl: './list.component.html',\n  styleUrls: ['./list.component.scss']\n})\nexport class ListComponent implements OnInit {\n\n  listData = [];\n  showDialog = false;\n  dialogData: any = {};\n  user: any;\n  logout = true;\n\n  userData: Subscription;\n\n  @ViewChild('addVehicle', {static: false}) modal: AddVehicleComponent;\n\n  constructor(private vehicleService: VehicleService, private userService: UserDetailsService) { }\n\n  ngOnInit(): void {\n    // this.getVehicleData();\n    if (localStorage.getItem('user')) {\n      this.user = JSON.parse(localStorage.getItem('user'));\n      this.getVehicleDataForUser();\n      this.logout = false;\n    } else {\n      this.logout = true;\n      this.getVehicleData();\n    }\n    this.userData = this.userService.userDetails().subscribe((result: any) => {\n      if (result) {\n        this.user = result;\n        this.logout = false;\n        this.getVehicleDataForUser();\n      } else {\n        this.logout = true;\n        this.getVehicleData();\n      }\n    })\n  }\n\n  getVehicleDataForUser() {\n    this.vehicleService.getVehicle(this.user.id).subscribe((result: any) => {\n      this.listData = result;\n    });\n  }\n\n  getVehicleData() {\n    this.vehicleService.getAllVehicles().subscribe((result: any) => {\n      this.listData = result;\n    });\n  }\n\n  openModal() {\n    this.modal.open();\n  }\n\n  updateDetails(vehicleData) {\n    this.dialogData = vehicleData;\n    this.dialogData.edit = true;\n    this.openModal();\n  }\n\n  vehicleData(event) {\n    this.getVehicleDataForUser();\n  }\n\n  deleteDetails(data: any) {\n    this.vehicleService.deleteVehicle(data).subscribe((result: any) => {\n      this.getVehicleDataForUser();\n    })\n  }\n\n}\n",
+            "sourceCode": "import { Component, OnInit, ViewChild, Input, OnDestroy } from '@angular/core';\nimport { AddVehicleComponent } from '../add-vehicle/add-vehicle.component';\nimport { VehicleService } from '../../services/vehicle.service';\nimport { Subscription } from 'rxjs';\nimport { UserDetailsService } from 'src/app/services/user-details.service';\n\n@Component({\n  selector: 'app-list',\n  templateUrl: './list.component.html',\n  styleUrls: ['./list.component.scss']\n})\nexport class ListComponent implements OnInit, OnDestroy {\n\n  listData = [];\n  showDialog = false;\n  dialogData: any = {};\n  user: any;\n  logout = true;\n\n  @Input() storiesLoggedIn = false;\n\n  userData: Subscription;\n\n  @ViewChild('addVehicle', {static: false}) modal: AddVehicleComponent;\n\n  constructor(private vehicleService: VehicleService, private userService: UserDetailsService) { }\n\n  ngOnInit(): void {\n    // this.getVehicleData();\n    const loggedInUser = JSON.parse(localStorage.getItem('user'));\n    if (loggedInUser) {\n      this.user = loggedInUser;\n      this.getVehicleDataForUser();\n      this.logout = false;\n    } else {\n      this.logout = true;\n      this.getVehicleData();\n    }\n    this.userData = this.userService.userDetails().subscribe((result: any) => {\n      if (result) {\n        this.user = result;\n        this.logout = false;\n        this.getVehicleDataForUser();\n      } else {\n        this.logout = true;\n        this.getVehicleData();\n      }\n    }, (error: any) => {\n      console.log(error);\n    });\n\n    if(this.storiesLoggedIn) {\n      this.logout = false;\n    }\n  }\n\n  getVehicleDataForUser() {\n    this.vehicleService.getVehicle(this.user.id).subscribe((result: any) => {\n      this.listData = result;\n    }, (error: any) => {\n      console.log(error);\n    });\n  }\n\n  getVehicleData() {\n    this.vehicleService.getAllVehicles().subscribe((result: any) => {\n      this.listData = result;\n    }, (error: any) => {\n      console.log(error);\n    });\n  }\n\n  openModal() {\n    this.modal.open();\n  }\n\n  updateDetails(vehicleData) {\n    this.dialogData = vehicleData;\n    this.dialogData.edit = true;\n    this.openModal();\n  }\n\n  vehicleData(event) {\n    this.getVehicleDataForUser();\n  }\n\n  deleteDetails(data: any) {\n    this.vehicleService.deleteVehicle(data).subscribe((result: any) => {\n      this.getVehicleDataForUser();\n    }, (error: any) => {\n      console.log(error);\n    })\n  }\n\n  ngOnDestroy() {\n    this.userData.unsubscribe();\n  }\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1256,7 +1275,7 @@
                         "type": "UserDetailsService"
                     }
                 ],
-                "line": 23,
+                "line": 24,
                 "jsdoctags": [
                     {
                         "name": "vehicleService",
@@ -1275,13 +1294,14 @@
                 ]
             },
             "implements": [
-                "OnInit"
+                "OnInit",
+                "OnDestroy"
             ],
             "templateData": "<div class=\"button-bar\" *ngIf=\"!logout\">\n  <button class=\"btn btn-primary\" (click)=\"openModal()\">Add Vehicle</button>\n</div>\n\n<div class=\"grid-container\">\n  <div *ngFor=\"let data of listData\" class=\"grid-items\">\n    <div class=\"item-grid-container\">\n      <div class=\"content\">\n        <div class=\"item-grid-content\" [ngStyle]=\"{ 'background-image': 'url(' + data.imageUrl + ')' }\"></div>\n        <div class=\"content-item\">\n          <span class=\"content-header\">{{ data.name }}</span>\n          <span class=\"ml-8 content-sub-header\">{{ data.model }}</span>\n          <span class=\"price-details\"><span class=\"item-price\">&#8377;{{ data.price }}</span></span>\n        </div>\n        <div class=\"content-item text-center\">\n          <span>Color: </span><span class=\"item-color\" [ngStyle]=\"{ color: data.color }\">{{ data.color }}</span>\n        </div>\n        <div class=\"content-item text-center\" *ngIf=\"!logout\">\n          <button class=\"btn btn-primary\" (click)=\"updateDetails(data)\">Edit</button>\n          <button class=\"btn btn-primary ml-24\" (click)=\"deleteDetails(data)\">Delete</button>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<app-add-vehicle #addVehicle [dialogData]=\"dialogData\" [user]=\"user\" (vehicleData)=\"vehicleData($event)\"></app-add-vehicle>\n"
         },
         {
             "name": "LoginComponent",
-            "id": "component-LoginComponent-782eab1716faec44a697490098cc80c7",
+            "id": "component-LoginComponent-2e9165664f1659661c4f5372be87dd78",
             "file": "src/app/login/login.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1298,6 +1318,11 @@
             ],
             "viewProviders": [],
             "inputsClass": [
+                {
+                    "name": "showPopup",
+                    "defaultValue": "false",
+                    "line": 82
+                },
                 {
                     "name": "width",
                     "line": 75,
@@ -1362,7 +1387,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 95
+                    "line": 102
                 },
                 {
                     "name": "login",
@@ -1370,7 +1395,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 99
+                    "line": 106
                 },
                 {
                     "name": "ngOnInit",
@@ -1378,7 +1403,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 84
+                    "line": 86
                 },
                 {
                     "name": "open",
@@ -1386,7 +1411,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 91
+                    "line": 98
                 },
                 {
                     "name": "registerUser",
@@ -1394,7 +1419,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 122
+                    "line": 129
                 }
             ],
             "hostBindings": [],
@@ -1402,11 +1427,11 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';\nimport { trigger, transition, query, animateChild, style, animate } from '@angular/animations';\nimport { FormGroup, FormBuilder, Validators } from '@angular/forms';\nimport { UserDetailsService } from '../services/user-details.service';\n\nimport { AuthService } from '../services/auth.service';\nimport { RegistrationComponent } from '../registration/registration.component';\n\n@Component({\n  selector: 'app-login',\n  templateUrl: './login.component.html',\n  styleUrls: ['./login.component.scss'],\n  animations: [\n    trigger('host', [\n      transition(':leave', [\n        query('@container,@content', [\n          animateChild()\n        ])\n      ]),\n      transition(':enter', [\n        query('@container,@content', [\n          animateChild()\n        ])\n      ]),\n    ]),\n    trigger('content', [\n      transition(':leave', [\n        style({\n          transform: 'scale(1)'\n        }),\n        animate('100ms ease-out', style({\n          transform: 'scale(1.2)'\n        })),\n        animate('300ms ease-in', style({\n          transform: 'scale(0)'\n        }))\n      ]),\n      transition(':enter', [\n        style({\n          transform: 'scale(0.5)'\n        }),\n        animate('200ms ease-out', style({\n          transform: 'scale(1.2)'\n        })),\n        animate('100ms ease-out', style({\n          transform: 'scale(1)'\n        }))\n      ]),\n    ]),\n    trigger('container', [\n      transition(':leave', [\n        style({\n          opacity: 1,\n        }),\n        animate('230ms ease-in', style({\n          opacity: 0,\n        }))\n      ]),\n      transition(':enter', [\n        style({\n          opacity: 0,\n        }),\n        animate('230ms ease-in', style({\n          opacity: 1,\n        }))\n      ]),\n    ])\n  ]\n})\nexport class LoginComponent implements OnInit {\n\n  @ViewChild('myModal', { static: false }) modal: ElementRef;\n  @ViewChild('registration', {static: false}) registrationModal: RegistrationComponent;\n\n  @Input() width: number;\n\n  @Output('isLogin') isLogin: EventEmitter<any> = new EventEmitter();\n\n  loginForm: FormGroup;\n  errorMessage = '';\n\n  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UserDetailsService) { }\n\n  ngOnInit(): void {\n    this.loginForm = this.fb.group({\n      email: ['', Validators.required],\n      password: ['', Validators.required]\n    })\n  }\n\n  open() {\n    this.modal.nativeElement.style.display = 'block';\n  }\n\n  close() {\n    this.modal.nativeElement.style.display = 'none';\n  }\n\n  login() {\n    if (this.loginForm.invalid) {\n      this.errorMessage = 'Please enter valid username and password!!';\n      return;\n    }\n    const userData = {\n      email: this.loginForm.controls.email.value,\n      password: this.loginForm.controls.password.value\n    };\n    this.authService.login(userData).subscribe((result: any) => {\n      if (result) {\n        window.sessionStorage.setItem('token', result.access_token);\n        localStorage.setItem('user', JSON.stringify(result.user[0]));\n        this.userService.loggedInUser();\n        this.isLogin.emit({ success: true });\n        this.close();\n      }\n    }, (error: any) => {\n      this.errorMessage = error.error.message;\n    });\n\n  }\n\n  registerUser() {\n    this.close();\n    this.registrationModal.open();\n  }\n\n}\n",
+            "sourceCode": "import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';\nimport { trigger, transition, query, animateChild, style, animate } from '@angular/animations';\nimport { FormGroup, FormBuilder, Validators } from '@angular/forms';\nimport { UserDetailsService } from '../services/user-details.service';\n\nimport { AuthService } from '../services/auth.service';\nimport { RegistrationComponent } from '../registration/registration.component';\n\n@Component({\n  selector: 'app-login',\n  templateUrl: './login.component.html',\n  styleUrls: ['./login.component.scss'],\n  animations: [\n    trigger('host', [\n      transition(':leave', [\n        query('@container,@content', [\n          animateChild()\n        ])\n      ]),\n      transition(':enter', [\n        query('@container,@content', [\n          animateChild()\n        ])\n      ]),\n    ]),\n    trigger('content', [\n      transition(':leave', [\n        style({\n          transform: 'scale(1)'\n        }),\n        animate('100ms ease-out', style({\n          transform: 'scale(1.2)'\n        })),\n        animate('300ms ease-in', style({\n          transform: 'scale(0)'\n        }))\n      ]),\n      transition(':enter', [\n        style({\n          transform: 'scale(0.5)'\n        }),\n        animate('200ms ease-out', style({\n          transform: 'scale(1.2)'\n        })),\n        animate('100ms ease-out', style({\n          transform: 'scale(1)'\n        }))\n      ]),\n    ]),\n    trigger('container', [\n      transition(':leave', [\n        style({\n          opacity: 1,\n        }),\n        animate('230ms ease-in', style({\n          opacity: 0,\n        }))\n      ]),\n      transition(':enter', [\n        style({\n          opacity: 0,\n        }),\n        animate('230ms ease-in', style({\n          opacity: 1,\n        }))\n      ]),\n    ])\n  ]\n})\nexport class LoginComponent implements OnInit {\n\n  @ViewChild('myModal', { static: false }) modal: ElementRef;\n  @ViewChild('registration', {static: false}) registrationModal: RegistrationComponent;\n\n  @Input() width: number;\n\n  @Output('isLogin') isLogin: EventEmitter<any> = new EventEmitter();\n\n  loginForm: FormGroup;\n  errorMessage = '';\n\n  @Input() showPopup = false;\n\n  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UserDetailsService) { }\n\n  ngOnInit(): void {\n    this.loginForm = this.fb.group({\n      email: ['', Validators.required],\n      password: ['', Validators.required]\n    });\n\n    if (this.showPopup) {\n      document.querySelector<HTMLElement>('.container').style.display = 'block';\n      document.querySelector<HTMLElement>('#root').classList.add('light');\n    }\n  }\n\n  open() {\n    this.modal.nativeElement.style.display = 'block';\n  }\n\n  close() {\n    this.modal.nativeElement.style.display = 'none';\n  }\n\n  login() {\n    if (this.loginForm.invalid) {\n      this.errorMessage = 'Please enter valid username and password!!';\n      return;\n    }\n    const userData = {\n      email: this.loginForm.controls.email.value,\n      password: this.loginForm.controls.password.value\n    };\n    this.authService.login(userData).subscribe((result: any) => {\n      if (result) {\n        window.sessionStorage.setItem('token', result.access_token);\n        localStorage.setItem('user', JSON.stringify(result.user[0]));\n        this.userService.loggedInUser();\n        this.isLogin.emit({ success: true });\n        this.close();\n      }\n    }, (error: any) => {\n      this.errorMessage = error.error.message;\n    });\n\n  }\n\n  registerUser() {\n    this.close();\n    this.registrationModal.open();\n  }\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "@import '../../assets/themes/_variables.scss';\r\n@import '../../assets/themes/_mixins.scss';\r\n\r\n/**** Modal Styles ****/\r\n\r\n.container {\r\n    display: none;\r\n    position: fixed;\r\n    z-index: 1;\r\n    padding-top: 100px;\r\n    left: 0;\r\n    top: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: auto;\r\n    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */\r\n\r\n    .content {\r\n        background-color: var(--modal-background);\r\n        margin: auto;\r\n        border: 1px solid var(--modal-border-color);\r\n        width: 80%;\r\n        border-radius: 5px;\r\n\r\n        .dialog-header {\r\n            padding: $space-24;\r\n            border-bottom: 1px solid var(--border-color);\r\n            span {\r\n                @include custom-fontSize(24px);\r\n            }\r\n        }\r\n        .dialog-content {\r\n            padding: $space-24;\r\n        }\r\n\r\n        .dialog-button-bar {\r\n            border-top: 1px solid var(--border-color);\r\n            padding: $space-16;\r\n            display: flex;\r\n            justify-content: flex-end;\r\n        }\r\n    }\r\n}\r\n\r\n.btn {\r\n    padding: $space-12 $space-16;\r\n    font-family: Calibri;\r\n    @include custom-fontSize(14px);\r\n    &:hover {\r\n        box-shadow: 0px 0 10px rgba(0, 0, 0, 0.5);\r\n    }\r\n    &:focus {\r\n        outline: 0;\r\n    }\r\n}\r\n\r\n.btn-transparent {\r\n    border: none;\r\n    background-color: var(--transparent-btn-color);\r\n    color: var(--transparent-btn-text-color);\r\n    cursor: pointer;\r\n}\r\n\r\n.btn-primary {\r\n    background-color: var(--primary-btn-color);\r\n    color: var(--primary-btn-text-color);\r\n    border: none;\r\n    font-weight: bold;\r\n    cursor: pointer;\r\n}\r\n\r\n.btn-link {\r\n    padding: 0;\r\n    color: var(--primary-btn-color);\r\n    cursor: pointer;\r\n    &:hover {\r\n        box-shadow: none;\r\n    }\r\n}\r\n\r\n.form-grid {\r\n    display: grid;\r\n    grid-template-columns: 50% 50%;\r\n\r\n    .form-field {\r\n        padding: 0 $space-12 $space-12 0;\r\n    }\r\n}\r\n\r\ninput {\r\n    width: 100%;\r\n    border: 1px solid var(--border-color);\r\n    padding: $space-12;\r\n    @include custom-fontSize($space-14, \"\", $space-16);\r\n    box-sizing: border-box;\r\n    &:focus {\r\n        outline: 0;\r\n    }\r\n}\r\n\r\n",
+                    "data": "@import '../../assets/themes/_variables.scss';\r\n@import '../../assets/themes/_mixins.scss';\r\n// @import '../../styles.scss';\r\n\r\n/**** Modal Styles ****/\r\n\r\n.container {\r\n    display: none;\r\n    position: fixed;\r\n    z-index: 1;\r\n    padding-top: 100px;\r\n    left: 0;\r\n    top: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: auto;\r\n    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */\r\n\r\n    .content {\r\n        background-color: var(--modal-background);\r\n        margin: auto;\r\n        border: 1px solid var(--modal-border-color);\r\n        width: 80%;\r\n        border-radius: 5px;\r\n\r\n        .dialog-header {\r\n            padding: $space-24;\r\n            border-bottom: 1px solid var(--border-color);\r\n            span {\r\n                @include custom-fontSize(24px);\r\n            }\r\n        }\r\n        .dialog-content {\r\n            padding: $space-24;\r\n        }\r\n\r\n        .dialog-button-bar {\r\n            border-top: 1px solid var(--border-color);\r\n            padding: $space-16;\r\n            display: flex;\r\n            justify-content: flex-end;\r\n        }\r\n    }\r\n}\r\n\r\n.btn {\r\n    padding: $space-12 $space-16;\r\n    font-family: Calibri;\r\n    @include custom-fontSize(14px);\r\n    &:hover {\r\n        box-shadow: 0px 0 10px rgba(0, 0, 0, 0.5);\r\n    }\r\n    &:focus {\r\n        outline: 0;\r\n    }\r\n}\r\n\r\n.btn-transparent {\r\n    border: none;\r\n    background-color: var(--transparent-btn-color);\r\n    color: var(--transparent-btn-text-color);\r\n    cursor: pointer;\r\n}\r\n\r\n.btn-primary {\r\n    background-color: var(--primary-btn-color);\r\n    color: var(--primary-btn-text-color);\r\n    border: none;\r\n    font-weight: bold;\r\n    cursor: pointer;\r\n}\r\n\r\n.btn-link {\r\n    padding: 0;\r\n    color: var(--primary-btn-color);\r\n    cursor: pointer;\r\n    &:hover {\r\n        box-shadow: none;\r\n    }\r\n}\r\n\r\n.form-grid {\r\n    display: grid;\r\n    grid-template-columns: 50% 50%;\r\n\r\n    .form-field {\r\n        padding: 0 $space-12 $space-12 0;\r\n    }\r\n}\r\n\r\ninput {\r\n    width: 100%;\r\n    border: 1px solid var(--border-color);\r\n    padding: $space-12;\r\n    @include custom-fontSize($space-14, \"\", $space-16);\r\n    box-sizing: border-box;\r\n    &:focus {\r\n        outline: 0;\r\n    }\r\n}\r\n\r\n",
                     "styleUrl": "./login.component.scss"
                 }
             ],
@@ -1428,7 +1453,7 @@
                         "type": "UserDetailsService"
                     }
                 ],
-                "line": 80,
+                "line": 82,
                 "jsdoctags": [
                     {
                         "name": "fb",
@@ -1581,7 +1606,7 @@
         },
         {
             "name": "RegistrationComponent",
-            "id": "component-RegistrationComponent-4e3464d6291a26b50bdd1ed60284f31c",
+            "id": "component-RegistrationComponent-64c5e6010ea7251cd01625aa13810044",
             "file": "src/app/registration/registration.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1598,6 +1623,11 @@
             ],
             "viewProviders": [],
             "inputsClass": [
+                {
+                    "name": "showPopup",
+                    "defaultValue": "false",
+                    "line": 17
+                },
                 {
                     "name": "width",
                     "line": 15,
@@ -1642,7 +1672,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 30
+                    "line": 35
                 },
                 {
                     "name": "ngOnInit",
@@ -1650,7 +1680,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 19
+                    "line": 20
                 },
                 {
                     "name": "open",
@@ -1658,7 +1688,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 26
+                    "line": 31
                 },
                 {
                     "name": "register",
@@ -1666,7 +1696,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 34
+                    "line": 39
                 }
             ],
             "hostBindings": [],
@@ -1674,7 +1704,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';\nimport { FormGroup, Validators, FormBuilder } from '@angular/forms';\nimport { trigger, transition, query, animateChild, style, animate } from '@angular/animations';\nimport { AuthService } from '../services/auth.service';\nimport { UserDetailsService } from '../services/user-details.service';\n\n@Component({\n  selector: 'app-registration',\n  templateUrl: './registration.component.html',\n  styleUrls: ['./registration.component.scss']\n})\nexport class RegistrationComponent implements OnInit {\n  @ViewChild('myModal', { static: false }) modal: ElementRef;\n  registrationForm: FormGroup;\n  @Input() width: number;\n  errorMessage = '';\n  constructor(private fb: FormBuilder, private authService: AuthService) { }\n\n  ngOnInit(): void {\n    this.registrationForm = this.fb.group({\n      email: ['', Validators.required],\n      password: ['', Validators.required]\n    })\n  }\n\n  open() {\n    this.modal.nativeElement.style.display = 'block';\n  }\n\n  close() {\n    this.modal.nativeElement.style.display = 'none';\n  }\n\n  register() {\n    if (!this.registrationForm.valid) {\n      this.errorMessage = 'Please enter all the details before saving!!';\n      return;\n    }\n    const userData = {\n      email: this.registrationForm.controls.email.value,\n      password: this.registrationForm.controls.password.value\n    }\n    this.authService.registerUser(userData).subscribe((result: any) => {\n      this.close();\n    }, (error: any) => {\n      this.errorMessage = error.error.message;\n    })\n  }\n\n}\n",
+            "sourceCode": "import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';\nimport { FormGroup, Validators, FormBuilder } from '@angular/forms';\nimport { trigger, transition, query, animateChild, style, animate } from '@angular/animations';\nimport { AuthService } from '../services/auth.service';\nimport { UserDetailsService } from '../services/user-details.service';\n\n@Component({\n  selector: 'app-registration',\n  templateUrl: './registration.component.html',\n  styleUrls: ['./registration.component.scss']\n})\nexport class RegistrationComponent implements OnInit {\n  @ViewChild('myModal', { static: false }) modal: ElementRef;\n  registrationForm: FormGroup;\n  @Input() width: number;\n  errorMessage = '';\n  @Input() showPopup = false;\n  constructor(private fb: FormBuilder, private authService: AuthService) { }\n\n  ngOnInit(): void {\n    this.registrationForm = this.fb.group({\n      email: ['', Validators.required],\n      password: ['', Validators.required]\n    });\n    if (this.showPopup) {\n      document.querySelector<HTMLElement>('.container').style.display = 'block';\n      document.querySelector<HTMLElement>('#root').classList.add('light');\n    }\n  }\n\n  open() {\n    this.modal.nativeElement.style.display = 'block';\n  }\n\n  close() {\n    this.modal.nativeElement.style.display = 'none';\n  }\n\n  register() {\n    if (!this.registrationForm.valid) {\n      this.errorMessage = 'Please enter all the details before saving!!';\n      return;\n    }\n    const userData = {\n      email: this.registrationForm.controls.email.value,\n      password: this.registrationForm.controls.password.value\n    }\n    this.authService.registerUser(userData).subscribe((result: any) => {\n      this.close();\n    }, (error: any) => {\n      this.errorMessage = error.error.message;\n    })\n  }\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1696,7 +1726,7 @@
                         "type": "AuthService"
                     }
                 ],
-                "line": 16,
+                "line": 17,
                 "jsdoctags": [
                     {
                         "name": "fb",
@@ -1927,6 +1957,38 @@
                 "defaultValue": "createReducer(\r\n    initialState,\r\n    on(changeTheme, (state) => {\r\n        if (state === 'dark') {\r\n            return 'light';\r\n        } else {\r\n            return 'dark';\r\n        }\r\n    })\r\n)"
             },
             {
+                "name": "AddVehiclePopup",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/AddVehicle.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Cancel",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/AddVehicle.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Cancel",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Login.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Cancel",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Registration.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
                 "name": "changeTheme",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -2031,6 +2093,22 @@
                 "defaultValue": "Template.bind({})"
             },
             {
+                "name": "Login",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Login.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Login",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Registration.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
                 "name": "Primary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -2065,9 +2143,9 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/Button.stories.ts",
-                "type": "Story<Button>",
-                "defaultValue": "(args: Button) => ({\n  component: Button,\n  props: args,\n})"
+                "file": "src/stories/AddVehicle.stories.ts",
+                "type": "Story<AddVehicleComponent>",
+                "defaultValue": "(args: AddVehicleComponent) => ({\r\n    component: AddVehicleComponent,\r\n    props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -2076,6 +2154,14 @@
                 "file": "src/stories/footer.stories.ts",
                 "type": "Story<FooterComponent>",
                 "defaultValue": "(args: FooterComponent) => ({\r\n    component: FooterComponent,\r\n    props: args,\r\n  })"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Button.stories.ts",
+                "type": "Story<Button>",
+                "defaultValue": "(args: Button) => ({\n  component: Button,\n  props: args,\n})"
             },
             {
                 "name": "Template",
@@ -2091,7 +2177,15 @@
                 "subtype": "variable",
                 "file": "src/stories/List.stories.ts",
                 "type": "Story<ListComponent>",
-                "defaultValue": "(args: ListComponent) => ({\r\n  component: ListComponent,\r\n  props: args,\r\n})"
+                "defaultValue": "(args: ListComponent) => ({\r\n  component: ListComponent,\r\n  props: {\r\n    storiesLoggedIn: true\r\n  }\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Login.stories.ts",
+                "type": "Story<LoginComponent>",
+                "defaultValue": "(args: LoginComponent) => ({\r\n  component: LoginComponent,\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -2100,6 +2194,14 @@
                 "file": "src/stories/Page.stories.ts",
                 "type": "Story<Page>",
                 "defaultValue": "(args: Page) => ({\n  component: Page,\n  props: args,\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Registration.stories.ts",
+                "type": "Story<RegistrationComponent>",
+                "defaultValue": "(args: RegistrationComponent) => ({\r\n  component: RegistrationComponent,\r\n  props: args\r\n})"
             }
         ],
         "functions": [
@@ -2156,6 +2258,84 @@
                     "file": "src/app/state-management/theme.reducer.ts",
                     "type": "string",
                     "defaultValue": "'light'"
+                }
+            ],
+            "src/stories/AddVehicle.stories.ts": [
+                {
+                    "name": "AddVehiclePopup",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/AddVehicle.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Cancel",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/AddVehicle.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/AddVehicle.stories.ts",
+                    "type": "Story<AddVehicleComponent>",
+                    "defaultValue": "(args: AddVehicleComponent) => ({\r\n    component: AddVehicleComponent,\r\n    props: args\r\n})"
+                }
+            ],
+            "src/stories/Login.stories.ts": [
+                {
+                    "name": "Cancel",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Login.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Login",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Login.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Login.stories.ts",
+                    "type": "Story<LoginComponent>",
+                    "defaultValue": "(args: LoginComponent) => ({\r\n  component: LoginComponent,\r\n  props: args\r\n})"
+                }
+            ],
+            "src/stories/Registration.stories.ts": [
+                {
+                    "name": "Cancel",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Registration.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Login",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Registration.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Registration.stories.ts",
+                    "type": "Story<RegistrationComponent>",
+                    "defaultValue": "(args: RegistrationComponent) => ({\r\n  component: RegistrationComponent,\r\n  props: args\r\n})"
                 }
             ],
             "src/app/state-management/theme.actions.ts": [
@@ -2262,7 +2442,7 @@
                     "subtype": "variable",
                     "file": "src/stories/List.stories.ts",
                     "type": "Story<ListComponent>",
-                    "defaultValue": "(args: ListComponent) => ({\r\n  component: ListComponent,\r\n  props: args,\r\n})"
+                    "defaultValue": "(args: ListComponent) => ({\r\n  component: ListComponent,\r\n  props: {\r\n    storiesLoggedIn: true\r\n  }\r\n})"
                 }
             ],
             "src/app/page/models/list.model.ts": [
@@ -2509,7 +2689,7 @@
                 "linktype": "component",
                 "name": "LoginComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/13",
+                "coverageCount": "0/14",
                 "status": "low"
             },
             {
@@ -2518,7 +2698,7 @@
                 "linktype": "component",
                 "name": "AddVehicleComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/16",
+                "coverageCount": "0/17",
                 "status": "low"
             },
             {
@@ -2527,7 +2707,7 @@
                 "linktype": "component",
                 "name": "ListComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/16",
+                "coverageCount": "0/18",
                 "status": "low"
             },
             {
@@ -2555,7 +2735,7 @@
                 "linktype": "component",
                 "name": "RegistrationComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/10",
+                "coverageCount": "0/11",
                 "status": "low"
             },
             {
@@ -2640,6 +2820,36 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/AddVehicle.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "AddVehiclePopup",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/AddVehicle.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Cancel",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/AddVehicle.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -2745,6 +2955,36 @@
                 "status": "low"
             },
             {
+                "filePath": "src/stories/Login.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Cancel",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Login.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Login",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Login.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/stories/Page.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
@@ -2766,6 +3006,36 @@
             },
             {
                 "filePath": "src/stories/Page.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Registration.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Cancel",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Registration.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Login",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/Registration.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",

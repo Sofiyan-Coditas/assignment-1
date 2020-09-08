@@ -14,7 +14,7 @@ export class AddVehicleComponent implements OnInit {
   @Input() user;
   errorMessage = '';
   editFlag = false;
-
+  @Input() showPopup = false;
   form: FormGroup;
 
   constructor(private fb: FormBuilder, private vehicleService: VehicleService) { }
@@ -38,6 +38,10 @@ export class AddVehicleComponent implements OnInit {
       price: ['', [Validators.required]],
       imageUrl: ['', [Validators.required]]
     });
+    if (this.showPopup) {
+      document.querySelector<HTMLElement>('.container').style.display = 'block';
+      document.querySelector<HTMLElement>('#root').classList.add('light');
+    }
   }
 
   ngOnChanges() {

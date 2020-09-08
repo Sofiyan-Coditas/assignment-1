@@ -14,13 +14,18 @@ export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
   @Input() width: number;
   errorMessage = '';
+  @Input() showPopup = false;
   constructor(private fb: FormBuilder, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
-    })
+    });
+    if (this.showPopup) {
+      document.querySelector<HTMLElement>('.container').style.display = 'block';
+      document.querySelector<HTMLElement>('#root').classList.add('light');
+    }
   }
 
   open() {

@@ -31,7 +31,8 @@ const Template: Story<LoginComponent> = (args: LoginComponent) => ({
 
 export const Login = Template.bind({})
 Login.args = {
-  user: {},
+  showPopup: true,
+  width: 400
 };
 
 export const Cancel = Template.bind({});

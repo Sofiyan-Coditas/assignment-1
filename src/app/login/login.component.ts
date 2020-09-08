@@ -79,13 +79,20 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   errorMessage = '';
 
+  @Input() showPopup = false;
+
   constructor(private fb: FormBuilder, private authService: AuthService, private userService: UserDetailsService) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
-    })
+    });
+
+    if (this.showPopup) {
+      document.querySelector<HTMLElement>('.container').style.display = 'block';
+      document.querySelector<HTMLElement>('#root').classList.add('light');
+    }
   }
 
   open() {

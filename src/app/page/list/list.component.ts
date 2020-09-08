@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ListModel } from '../models/list.model';
+import { Component, OnInit, ViewChild, Input, OnDestroy } from '@angular/core';
 import { AddVehicleComponent } from '../add-vehicle/add-vehicle.component';
 import { VehicleService } from '../../services/vehicle.service';
 import { Subscription } from 'rxjs';
@@ -10,13 +9,15 @@ import { UserDetailsService } from 'src/app/services/user-details.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
 
   listData = [];
   showDialog = false;
   dialogData: any = {};
   user: any;
   logout = true;
+
+  @Input() storiesLoggedIn = false;
 
   userData: Subscription;
 
@@ -26,8 +27,9 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     // this.getVehicleData();
-    if (localStorage.getItem('user')) {
-      this.user = JSON.parse(localStorage.getItem('user'));
+    const loggedInUser = JSON.parse(localStorage.getItem('user'));
+    if (loggedInUser) {
+      this.user = loggedInUser;
       this.getVehicleDataForUser();
       this.logout = false;
     } else {
@@ -43,18 +45,28 @@ export class ListComponent implements OnInit {
         this.logout = true;
         this.getVehicleData();
       }
-    })
+    }, (error: any) => {
+      console.log(error);
+    });
+
+    if(this.storiesLoggedIn) {
+      this.logout = false;
+    }
   }
 
   getVehicleDataForUser() {
     this.vehicleService.getVehicle(this.user.id).subscribe((result: any) => {
       this.listData = result;
+    }, (error: any) => {
+      console.log(error);
     });
   }
 
   getVehicleData() {
     this.vehicleService.getAllVehicles().subscribe((result: any) => {
       this.listData = result;
+    }, (error: any) => {
+      console.log(error);
     });
   }
 
@@ -75,7 +87,13 @@ export class ListComponent implements OnInit {
   deleteDetails(data: any) {
     this.vehicleService.deleteVehicle(data).subscribe((result: any) => {
       this.getVehicleDataForUser();
+    }, (error: any) => {
+      console.log(error);
     })
+  }
+
+  ngOnDestroy() {
+    this.userData.unsubscribe();
   }
 
 }
