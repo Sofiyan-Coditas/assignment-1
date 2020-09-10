@@ -91,3 +91,10 @@
         box-shadow: none;
     }
 }
+
+.pageTitle {
+    margin: 0 20%;
+    h3 {
+        @include custom-fontSize($space-32, var(--text-color));
+    }
+}

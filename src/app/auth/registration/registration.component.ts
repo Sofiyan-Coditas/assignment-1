@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { trigger, transition, query, animateChild, style, animate } from '@angular/animations';
-import { AuthService } from '../services/auth.service';
-import { UserDetailsService } from '../services/user-details.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-registration',

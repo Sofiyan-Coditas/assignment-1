@@ -6,6 +6,7 @@ import { UserDetailsService } from 'src/app/services/user-details.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CUSTOM_ELEMENTS_SCHEMA, Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 @Component({
   selector: 'app-add-vehicle',
@@ -28,8 +29,8 @@ describe('ListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ListComponent ],
-      imports: [],
-      providers: [VehicleService, UserDetailsService],
+      imports: [HttpClientTestingModule],
+      providers: [VehicleService],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();

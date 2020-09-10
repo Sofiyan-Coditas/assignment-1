@@ -4,6 +4,9 @@
             <span>Add Vehicle</span>
         </div>
         <div class="dialog-content">
+            <div class="pb-24" *ngIf="errorMessage">
+                <span class="error">{{ errorMessage }}</span>
+            </div>
             <form (submit)="save()" [formGroup]="form">
                 <div class="form-grid">
                     <div class="form-field">

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { LoginComponent } from '../login/login.component';
+import { LoginComponent } from '../auth/login/login.component';
 import { UserDetailsService } from '../services/user-details.service';
 import { Subscription, Observable } from 'rxjs';
 import { take, map } from 'rxjs/operators';
