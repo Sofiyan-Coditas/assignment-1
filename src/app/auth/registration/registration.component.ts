@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class RegistrationComponent implements OnInit {
   @ViewChild('myModal', { static: false }) modal: ElementRef;
+  @Output('closeModal') closeModal = new EventEmitter();
   registrationForm: FormGroup;
   @Input() width: number;
   errorMessage = '';
@@ -31,7 +32,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   close() {
-    this.modal.nativeElement.style.display = 'none';
+    this.closeModal.emit(event);
   }
 
   register() {

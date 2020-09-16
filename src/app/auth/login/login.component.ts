@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserDetailsService } from '../../services/user-details.service';
 
@@ -12,8 +12,10 @@ import { RegistrationComponent } from '../registration/registration.component';
 })
 export class LoginComponent implements OnInit {
 
-  @ViewChild('myModal', { static: false }) modal: ElementRef;
-  @ViewChild('registration', { static: false }) registrationModal: RegistrationComponent;
+  @ViewChild('myModal', { static: false }) modal: ViewContainerRef;
+  @ViewChild('registration', { read: ViewContainerRef }) registrationModal: ViewContainerRef;
+
+  @Output('closeModal') closeModal = new EventEmitter();
 
   @Input() width: number;
 
@@ -24,7 +26,12 @@ export class LoginComponent implements OnInit {
 
   @Input() showPopup = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UserDetailsService) { }
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private userService: UserDetailsService,
+    private componentFactoryResolver: ComponentFactoryResolver
+  ) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -38,12 +45,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  open() {
-    this.modal.nativeElement.style.display = 'block';
-  }
-
   close() {
-    this.modal.nativeElement.style.display = 'none';
+    this.closeModal.emit(event);
   }
 
   login() {
@@ -70,8 +73,17 @@ export class LoginComponent implements OnInit {
   }
 
   registerUser() {
-    this.close();
-    this.registrationModal.open();
+    // this.close();
+    // create the component factory
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(RegistrationComponent);
+
+    // add the component to the view
+    const componentRef = this.registrationModal.createComponent(componentFactory);
+
+    componentRef.instance.width = 400;
+    componentRef.instance.closeModal.subscribe(() => {
+      componentRef.destroy();
+    });
   }
 
 }

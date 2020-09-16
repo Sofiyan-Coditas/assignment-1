@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { LoginComponent } from '../auth/login/login.component';
 import { UserDetailsService } from '../services/user-details.service';
 import { Subscription, Observable } from 'rxjs';
@@ -6,6 +6,8 @@ import { take, map } from 'rxjs/operators';
 import { ToggleSwitch } from '../lit-elements/toggle-switch';
 import { Store, select, State, createSelector } from '@ngrx/store';
 import { changeTheme } from '../state-management/theme.actions';
+
+import { ModalService } from '../services/modal.service';
 
 console.assert(ToggleSwitch !== undefined);
 
@@ -16,7 +18,7 @@ console.assert(ToggleSwitch !== undefined);
 })
 export class HeaderComponent implements OnInit {
 
-  @ViewChild('login', {static: false}) modal: LoginComponent;
+  // @ViewChild('loginPopup', {read: ViewContainerRef}) loginPopup: ViewContainerRef;
 
   loggedIn = false;
   lightTheme = true;
@@ -29,7 +31,13 @@ export class HeaderComponent implements OnInit {
 
   initialTheme = '';
 
-  constructor(private userService: UserDetailsService, private store: Store<{theme: string}>) {
+  constructor(
+    private userService: UserDetailsService,
+    private store: Store<{theme: string}>,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private modalService: ModalService,
+    private viewContainerRef: ViewContainerRef
+    ) {
     this.theme = this.store.pipe(select('theme'));
   }
 
@@ -52,7 +60,18 @@ export class HeaderComponent implements OnInit {
   }
 
   openModal() {
-    this.modal.open();
+    this.modalService.setRootViewContainerRef(this.viewContainerRef);
+    this.modalService.openModal(LoginComponent);
+     // create the component factory
+    //  const componentFactory = this.componentFactoryResolver.resolveComponentFactory(LoginComponent);
+
+    //  // add the component to the view
+    //  const componentRef = this.loginPopup.createComponent(componentFactory);
+
+    //  componentRef.instance.width = 400;
+    //  componentRef.instance.closeModal.subscribe(() => {
+    //    componentRef.destroy();
+    //  });
   }
 
   userLoggedIn(event) {
